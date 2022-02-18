@@ -9,9 +9,9 @@
 // bad alloc
 #include <new>
 
-#include "MultiLayerPerceptron.h"
+#include "multilayer-perceptron.hpp"
 
-#include "loss_function.h"
+#include "loss-function.hpp"
 
 namespace mlp {
     namespace binary_or {

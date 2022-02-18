@@ -1,4 +1,4 @@
-#include "NodeMLP.h"
+#include "node-mlp.hpp"
 
 #include <exception>
 #include <stdexcept>

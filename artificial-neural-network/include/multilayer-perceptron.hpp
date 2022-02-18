@@ -9,14 +9,14 @@
 
 #include "Eigen/Core"
 
-#include "NodeMLP.h"
-#include "errors_mlp.h"
+#include "node-mlp.hpp"
+#include "errors-mlp.hpp"
 #include "ReadFormattedDataTableCSV.h"
 #include "DataTable.h"
-#include "activation_functions.h"
-#include "derivatives_activation_functions.h"
-#include "loss_function.h"
-#include "derivatives_loss_function.h"
+#include "activation-functions.hpp"
+#include "derivatives-activation-functions.hpp"
+#include "loss-function.hpp"
+#include "derivatives-loss-function.hpp"
 
 namespace mlp {
     typedef NodeMLP::InputWeightOutputT NetValuesType;

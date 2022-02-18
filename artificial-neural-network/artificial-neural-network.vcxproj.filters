@@ -35,13 +35,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\MultiLayerPerceptron.cpp">
+    <ClCompile Include="src\multilayer-perceptron.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\NodeMLP.cpp">
+    <ClCompile Include="src\node-mlp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ArtificialNeuralNetworkMain.cpp">
+    <ClCompile Include="artificial-neural-network.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="external\FileStreamWrapper\src\ErrorsHandlerFileOperations.cpp">
@@ -52,24 +52,24 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="doc\TODO.txt">
+    <Text Include="docs\to-do.txt">
       <Filter>Docs</Filter>
     </Text>
-    <Text Include="doc\Documentation.txt">
+    <Text Include="docs\documentation.txt">
       <Filter>Docs</Filter>
     </Text>
-    <Text Include="doc\CopyPastHelper.txt">
+    <Text Include="docs\copy-past-helper.txt">
       <Filter>Docs</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\MultiLayerPerceptron.h">
+    <ClInclude Include="include\multilayer-perceptron.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\activation_functions.h">
+    <ClInclude Include="include\activation-functions.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\NodeMLP.h">
+    <ClInclude Include="include\node-mlp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="external\FileStreamWrapper\include\BOM.h">
@@ -93,10 +93,10 @@
     <ClInclude Include="external\FileStreamWrapper\include\WriteSerializedDataFile.h">
       <Filter>FileStreamWrapper\Header</Filter>
     </ClInclude>
-    <ClInclude Include="include\loss_function.h">
+    <ClInclude Include="include\loss-function.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\errors_mlp.h">
+    <ClInclude Include="include\errors-mlp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="external\FileStreamWrapper\include\DataTable.h">
@@ -111,18 +111,18 @@
     <ClInclude Include="external\FileStreamWrapper\include\ReadFormattedDataTableCSV.h">
       <Filter>FileStreamWrapper\Header</Filter>
     </ClInclude>
-    <ClInclude Include="include\Networks\binary_or.h">
+    <ClInclude Include="include\Networks\binary-or.hpp">
       <Filter>Networks\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\derivatives_activation_functions.h">
+    <ClInclude Include="include\derivatives-activation-functions.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\derivatives_loss_function.h">
+    <ClInclude Include="include\derivatives-loss-function.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="doc\!Wiki.odt">
+    <None Include="docs\!wiki.odt">
       <Filter>Docs</Filter>
     </None>
   </ItemGroup>

@@ -1,4 +1,4 @@
-#include "MultiLayerPerceptron.h"
+#include "multilayer-perceptron.hpp"
 
 #include <cmath>
 #include <fstream>
@@ -447,43 +447,43 @@ namespace mlp {
             //file::WriteBOM(write_file_stream, file::BOMEnum::No_BOM);
             
             // Topology
-            file::WriteSerializedDataFile<unsigned char>(write_file_stream, &topology_);
+            file::WriteSerializedDataFile(write_file_stream, &topology_);
 
             // Hidden Layer Activation Function
-            file::WriteSerializedDataFile<unsigned char>(write_file_stream, &hidden_layer_actv_func_type_);
+            file::WriteSerializedDataFile(write_file_stream, &hidden_layer_actv_func_type_);
 
             // Output Layer Activation Function
-            file::WriteSerializedDataFile<unsigned char>(write_file_stream, &output_layer_actv_func_type_);
+            file::WriteSerializedDataFile(write_file_stream, &output_layer_actv_func_type_);
 
             // Loss Function Type
-            file::WriteSerializedDataFile<unsigned char>(write_file_stream, &loss_func_type_);
+            file::WriteSerializedDataFile(write_file_stream, &loss_func_type_);
 
             // Bias
-            file::WriteSerializedDataFile<unsigned char>(write_file_stream, &has_bias_);
+            file::WriteSerializedDataFile(write_file_stream, &has_bias_);
 
             // Normalization flag
-            file::WriteSerializedDataFile<unsigned char>(write_file_stream, &to_normalize_data_);
+            file::WriteSerializedDataFile(write_file_stream, &to_normalize_data_);
 
             // Learning Rate Schedule
-            file::WriteSerializedDataFile<unsigned char>(write_file_stream, &learning_rate_schedule_);
+            file::WriteSerializedDataFile(write_file_stream, &learning_rate_schedule_);
 
             // Initial Learning rate
-            file::WriteSerializedDataFile<unsigned char>(write_file_stream, &learning_rate_initial_);
+            file::WriteSerializedDataFile(write_file_stream, &learning_rate_initial_);
 
             // Current Learning rate
-            file::WriteSerializedDataFile<unsigned char>(write_file_stream, &learning_rate_);
+            file::WriteSerializedDataFile(write_file_stream, &learning_rate_);
 
             // Iteration step
-            file::WriteSerializedDataFile<unsigned char>(write_file_stream, &current_epoch_);
+            file::WriteSerializedDataFile(write_file_stream, &current_epoch_);
 
             // Decay is needed for changing learning rate
-            file::WriteSerializedDataFile<unsigned char>(write_file_stream, &decay_);
+            file::WriteSerializedDataFile(write_file_stream, &decay_);
 
             // Momentum
-            file::WriteSerializedDataFile<unsigned char>(write_file_stream, &momentum_);
+            file::WriteSerializedDataFile(write_file_stream, &momentum_);
 
             // Erorr threshold
-            file::WriteSerializedDataFile<unsigned char>(write_file_stream, &permissible_prediction_error_);
+            file::WriteSerializedDataFile(write_file_stream, &permissible_prediction_error_);
 
             // Mean Loss function value
             //file::WriteSerializedDataFile<unsigned char>(write_file_stream, &loss_fn_mean_);

@@ -4,8 +4,8 @@
 #include <vector>
 #include <utility>
 
-#include "activation_functions.h"
-#include "errors_mlp.h"
+#include "activation-functions.hpp"
+#include "errors-mlp.hpp"
 
 namespace mlp {
     constexpr double default_weight{ 0.01 };
