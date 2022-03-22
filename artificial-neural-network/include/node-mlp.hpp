@@ -1,5 +1,5 @@
-﻿#ifndef NODEMLP_H
-#define NODEMLP_H
+﻿#ifndef NODE_MLP_HPP_
+#define NODE_MLP_HPP_
 
 #include <vector>
 #include <utility>
@@ -21,11 +21,11 @@ namespace mlp {
         //friend void MultiLayerPerceptron::CalcWeights();
 
         // type of Input, Weight & Output
-        typedef long double InputWeightOutputT;
+        using InputWeightOutputT = long double;
 
         // Pair of input_ptr & weight
-        /*typedef std::pair<const InputWeightOutputT*, InputWeightOutputT> InputWeightPairT;
-        typedef std::vector<InputWeightPairT> InputWeightVecT;*/
+        /*using InputWeightPairT = std::pair<const InputWeightOutputT*, InputWeightOutputT>;
+        using InputWeightVecT = std::vector<InputWeightPairT>;*/
 
         enum class ActivationFunctionType : unsigned int {
             //The following table compares the properties of several activation functions that are functions of one fold x from the previous layer or layers:
@@ -112,7 +112,7 @@ namespace mlp {
             // Bias is stored in last element
             //InputWeightVecT input_n_weights_{};
         };
-        typedef std::vector<Edge> Edges;
+        using Edges = std::vector<Edge>;
 
         // Calculate Summ of All input * weights
         inline InputWeightOutputT CalcNetInput() {
@@ -373,4 +373,4 @@ namespace mlp {
     };
 }
 
-#endif // !NODEMLP_H
+#endif // !NODE_MLP_HPP_

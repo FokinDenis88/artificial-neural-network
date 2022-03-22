@@ -1,5 +1,5 @@
-﻿#ifndef DERIVATIVES_LOSS_FUNCTION_H
-#define DERIVATIVES_LOSS_FUNCTION_H
+﻿#ifndef DERIVATIVES_LOSS_FUNCTION_HPP_
+#define DERIVATIVES_LOSS_FUNCTION_HPP_
 
 #include <cmath>
 #include <vector>
@@ -249,4 +249,4 @@ namespace fn_loss_deriv {
     
 }
 
-#endif // !DERIVATIVES_LOSS_FUNCTION_H
+#endif // !DERIVATIVES_LOSS_FUNCTION_HPP_

@@ -1,6 +1,7 @@
-#ifndef BINARY_OR_H
-#define BINARY_OR_H
+#ifndef BINARY_OR_HPP_
+#define BINARY_OR_HPP_
 
+#include <iomanip>
 #include <iostream>
 #include <chrono>
 #include <exception>
@@ -16,8 +17,8 @@
 namespace mlp {
     namespace binary_or {
 
-        typedef DataTableArray<3, float> TableBinaryOR;
-        typedef DataTableArray<4, float> TableBinaryORFullTarget;
+        using TableBinaryOR = DataTableArray<3, float>;
+        using TableBinaryORFullTarget = DataTableArray<4, float>;
 
         const mlp::TensorT kTestInput{ 0.4, 0.4 };
         const std::vector<mlp::TensorT> kTestVecInput{ { 25, 70 } };
@@ -245,9 +246,10 @@ namespace mlp {
                 std::cerr << "Fatal error";
                 return -1;
             }
+            return 1;
         }
 
     }
 }
 
-#endif // !BINARY_OR_H
+#endif // !BINARY_OR_HPP_

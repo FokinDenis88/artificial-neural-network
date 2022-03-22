@@ -19,11 +19,11 @@
 
 #include <omp.h>
 
-#include "BOM.h"
-#include "FileService.h"
-#include "WriteSerializedDataFile.h"
-#include "ReadSerializedDataFile.h"
-#include "ReadObjectInVecByte.h"
+#include "bom.hpp"
+#include "file-service.hpp"
+#include "write-serialized-data-file.hpp"
+#include "read-serialized-data-file.hpp"
+#include "read-object-in-vec-byte.hpp"
 
 namespace mlp {
 //public=================================
@@ -74,7 +74,7 @@ namespace mlp {
     void MultiLayerPerceptron::ProcessOutputOfLayerMtx(size_t layer) {
         if (layer > 0) { // if not first layer
             output_of_layers_[layer] = weights_in_layer_[layer] * output_of_layers_[layer-1];
-            // TODO: Добавить switch на все функции
+            // TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ switch пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             fn_actv::SigmoidLogisticFn(output_of_layers_[layer]);
             if (has_bias_ && layer < struct_mlp_.nodes_layers_n_edges.size() - 1) { // Not Last Layer
                 auto last_row_index{ output_of_layers_[layer].rows() };
@@ -403,7 +403,7 @@ namespace mlp {
 
         // count of neurons in layers
         std::vector<size_t> nodes_count_in_layers(layers_count);
-        // TODO: Проверка на число элементов в массиве
+        // TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         file::ReadObjectInVecByte(&nodes_count_in_layers[0], readed_data, obj_first_byte_index, sizeof(size_t) * layers_count);
         struct_mlp_.output_of_input_layer.resize(nodes_count_in_layers[0]);
         for (long i = 1; i < layers_count; ++i) { // enter empty nodes to layers
@@ -439,7 +439,7 @@ namespace mlp {
 
     void MultiLayerPerceptron::SaveMLP(const std::string& file_name) {
         // TODO: Throw exception when error
-        if (struct_mlp_.nodes_layers_n_edges.size() > 0) { // TODO: Проверка корректности создания нейронной сети
+        if (struct_mlp_.nodes_layers_n_edges.size() > 0) { // TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             const std::string file_path{ kSavedMLP_Folder + file_name + kMLP_F_Extension};
             std::basic_ofstream<unsigned char> write_file_stream{
                                     file::OpenFile<std::basic_ofstream<unsigned char>>(file_path, file::OpenModeWriteBinaryRewrite) };

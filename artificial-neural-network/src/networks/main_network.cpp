@@ -1,13 +1,14 @@
-#include "Networks/main_network.h"
+#include "networks/main_network.hpp"
 
+#include <iomanip> // setprecision
 #include <iostream>
 #include <chrono>
 #include <exception>
 #include <stdexcept>
 
-#include "ReadFormattedDataTableCSV.h"
+#include "read-formatted-data-table-csv.hpp"
 
-#include "MultiLayerPerceptron.h"
+#include "multilayer-perceptron.hpp"
 
 //#include "loss_function.h"
 

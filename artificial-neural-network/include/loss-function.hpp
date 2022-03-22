@@ -1,5 +1,5 @@
-﻿#ifndef LOSS_FUNCTION_H
-#define LOSS_FUNCTION_H
+﻿#ifndef LOSS_FUNCTION_HPP_
+#define LOSS_FUNCTION_HPP_
 
 #include <cmath>
 #include <vector>
@@ -311,7 +311,7 @@ namespace fn_loss {
 
 }
 
-#endif // !LOSS_FUNCTION_H
+#endif // !LOSS_FUNCTION_HPP_
 
 
 // https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/loss-functions/mean-squared-logarithmic-loss-(msle)

@@ -1,7 +1,7 @@
 ﻿//#include "Networks/main_network.h"
 //#include "Networks/zero_classifier.h"
 //#include "Networks/students_mark.h"
-#include "Networks/binary-or.hpp"
+#include "networks/binary-or.hpp"
 
 int main() {
     //mlp::main_network::Run();

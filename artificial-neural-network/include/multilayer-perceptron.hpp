@@ -1,5 +1,5 @@
-﻿#ifndef MULTILAYERPERCEPTRON_H
-#define MULTILAYERPERCEPTRON_H
+﻿#ifndef MULTILAYER_PERCEPTRON_HPP_
+#define MULTILAYER_PERCEPTRON_HPP_
 
 #include <vector>
 #include <string>
@@ -11,17 +11,17 @@
 
 #include "node-mlp.hpp"
 #include "errors-mlp.hpp"
-#include "ReadFormattedDataTableCSV.h"
-#include "DataTable.h"
+#include "read-formatted-data-table-csv.hpp"
+#include "data-table.hpp"
 #include "activation-functions.hpp"
 #include "derivatives-activation-functions.hpp"
 #include "loss-function.hpp"
 #include "derivatives-loss-function.hpp"
 
 namespace mlp {
-    typedef NodeMLP::InputWeightOutputT NetValuesType;
-    typedef std::vector<size_t> NodesCountInLayersT;
-    typedef std::vector<NodeMLP::InputWeightOutputT> TensorT;
+    using NetValuesType = NodeMLP::InputWeightOutputT;
+    using NodesCountInLayersT = std::vector<size_t>;
+    using TensorT = std::vector<NodeMLP::InputWeightOutputT>;
 
     // TODO: Variable for undone derivatives
     constexpr NetValuesType stub_var = 1.0;
@@ -117,15 +117,15 @@ namespace mlp {
     public:
 
         // Type of values in ANN
-        typedef std::pair<NodeMLP::InputWeightOutputT, NodeMLP::InputWeightOutputT> InputTargetPairT;
-        typedef std::vector<InputTargetPairT> InputTargetVecT;
+        using InputTargetPairT = std::pair<NodeMLP::InputWeightOutputT, NodeMLP::InputWeightOutputT>;
+        using InputTargetVecT = std::vector<InputTargetPairT>;
 
-        typedef std::vector<NodeMLP> OneLayerT;
-        typedef std::vector<OneLayerT> AllNodesLayersT;
+        using OneLayerT = std::vector<NodeMLP>;
+        using AllNodesLayersT = std::vector<OneLayerT>;
 
-        typedef std::vector<std::vector<TensorT>> DeltaWeightMatrixT;
+        using DeltaWeightMatrixT = std::vector<std::vector<TensorT>>;
 
-        typedef unsigned long long EpochIndexT;
+        using EpochIndexT = unsigned long long;
 
 
         // All types of Topologies
@@ -1043,4 +1043,4 @@ namespace mlp {
 
 }
 
-#endif // !MULTILAYERPERCEPTRON_H
+#endif // !MULTILAYER_PERCEPTRON_HPP_

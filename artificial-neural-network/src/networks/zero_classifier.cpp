@@ -1,13 +1,13 @@
-#include "Networks/zero_classifier.h"
+#include "Networks/zero_classifier.hpp"
 
 #include <iostream>
 #include <chrono>
 #include <exception>
 #include <stdexcept>
 
-#include "MultiLayerPerceptron.h"
+#include "MultiLayerPerceptron.hpp"
 
-#include "loss_function.h"
+#include "loss_function.hpp"
 
 namespace mlp {
     namespace zero_classifier {

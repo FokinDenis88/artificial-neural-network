@@ -1,4 +1,4 @@
-#ifndef ERRORS_MLP_H
+#ifndef ERRORS_MLP_HPP_
 
 #include <string>
 #include <exception>
@@ -15,8 +15,9 @@ namespace mlp {
     struct ErrorRuntimeMLP : public std::runtime_error {
         const unsigned int code{ kErrorCodeRuntimeMLP };
         ErrorRuntimeMLP(const std::string& msg)
-            : code{ kErrorCodeRuntimeMLP },
-            std::runtime_error(msg + kErrorCodeMsg + std::to_string(code)) {
+            : 	std::runtime_error(msg + kErrorCodeMsg + std::to_string(kErrorCodeRuntimeMLP)),
+        		code{ kErrorCodeRuntimeMLP }
+             {
         }
     };
     struct ErrorLogicMLP : public std::logic_error {
@@ -34,5 +35,5 @@ namespace mlp {
 
 }
 
-#define ERRORS_MLP_H
-#endif // !ERRORS_MLP_H
+#define ERRORS_MLP_HPP_
+#endif // !ERRORS_MLP_HPP_

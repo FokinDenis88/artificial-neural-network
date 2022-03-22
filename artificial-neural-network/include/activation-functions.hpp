@@ -1,11 +1,12 @@
-﻿#ifndef ACTIVATION_FUNCTIONS_H
-#define ACTIVATION_FUNCTIONS_H
+﻿#ifndef ACTIVATION_FUNCTIONS_HPP_
+#define ACTIVATION_FUNCTIONS_HPP_
 
 #include <cmath>
 // For MaxoutFn
 #include <vector>
 #include <algorithm>
 #include <type_traits>
+#include <concepts>
 
 #include "Eigen/Core"
 
@@ -210,4 +211,4 @@ namespace fn_actv {
     
 }
 
-#endif // !ACTIVATION_FUNCTIONS_H
+#endif // !ACTIVATION_FUNCTIONS_HPP_
