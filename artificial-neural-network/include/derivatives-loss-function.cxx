@@ -1,6 +1,8 @@
 ﻿#ifndef DERIVATIVES_LOSS_FUNCTION_HPP_
 #define DERIVATIVES_LOSS_FUNCTION_HPP_
 
+module;
+
 #include <cmath>
 #include <vector>
 #include <execution>
@@ -10,9 +12,11 @@
 
 #include "Eigen/Core"
 
+export module derivatives_loss_function;
+
 // Loss functions
 // Most popular: The mean squared error_value, cross-entropy error_value
-namespace fn_loss_deriv {
+export namespace fn_loss_deriv {
 
     template<typename T>
     concept FloatingTypes = std::is_same_v<float, T> || std::is_same_v<double, T> || std::is_same_v<long double, T>;

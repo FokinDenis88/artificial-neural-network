@@ -1,10 +1,14 @@
 #ifndef ERRORS_MLP_HPP_
 
+module;
+
 #include <string>
 #include <exception>
 #include <stdexcept>
 
-namespace mlp {
+export module errors_mlp;
+
+export namespace mlp {
 
     constexpr char kErrorCodeMsg[]{ " Error code: " };
     constexpr unsigned int kErrorCodeRuntimeMLP    { 1 };

@@ -1,7 +1,9 @@
 #ifndef BINARY_OR_HPP_
 #define BINARY_OR_HPP_
 
-#include <iomanip>
+module;
+
+#include <iomanip> // setprecision
 #include <iostream>
 #include <chrono>
 #include <exception>
@@ -10,9 +12,10 @@
 // bad alloc
 #include <new>
 
-#include "multilayer-perceptron.hpp"
+export module binary_or;
+import multilayer_perceptron;
 
-#include "loss-function.hpp"
+//#include "loss-function.hpp"
 
 namespace mlp {
     namespace binary_or {
@@ -23,7 +26,7 @@ namespace mlp {
         const mlp::TensorT kTestInput{ 0.4, 0.4 };
         const std::vector<mlp::TensorT> kTestVecInput{ { 25, 70 } };
 
-        int Run() {
+        export int Run() {
             try {
 #define NODEFORM_BINARY_OR
 //#define MATRIXFORM_BINARY_OR

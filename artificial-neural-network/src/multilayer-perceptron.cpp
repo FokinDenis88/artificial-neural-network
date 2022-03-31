@@ -1,4 +1,4 @@
-#include "multilayer-perceptron.hpp"
+module;
 
 #include <cmath>
 #include <fstream>
@@ -19,11 +19,14 @@
 
 #include <omp.h>
 
-#include "bom.hpp"
-#include "file-service.hpp"
-#include "write-serialized-data-file.hpp"
-#include "read-serialized-data-file.hpp"
-#include "read-object-in-vec-byte.hpp"
+module multilayer_perceptron;
+
+//import multilayer_perceptron;
+import file.bom;
+import file.file_service;
+import file.write_serialized_data_file;
+import file.read_serialized_data_file;
+import file.read_object_in_vec_byte;
 
 namespace mlp {
 //public=================================

@@ -1,6 +1,8 @@
 ﻿#ifndef LOSS_FUNCTION_HPP_
 #define LOSS_FUNCTION_HPP_
 
+module;
+
 #include <cmath>
 #include <vector>
 #include <execution>
@@ -10,9 +12,11 @@
 
 #include "Eigen/Core"
 
+export module loss_function;
+
 // Loss functions
 // Most popular: The mean squared error_value, cross-entropy error_value
-namespace fn_loss {
+export namespace fn_loss {
     // https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/loss-functions/mean-squared-logarithmic-loss-(msle)
     // https://medium.com/@zeeshanmulla/cost-activation-loss-function-neural-network-deep-learning-what-are-these-91167825a4de
 

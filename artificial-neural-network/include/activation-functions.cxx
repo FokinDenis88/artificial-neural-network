@@ -1,6 +1,8 @@
 ﻿#ifndef ACTIVATION_FUNCTIONS_HPP_
 #define ACTIVATION_FUNCTIONS_HPP_
 
+module;
+
 #include <cmath>
 // For MaxoutFn
 #include <vector>
@@ -10,11 +12,13 @@
 
 #include "Eigen/Core"
 
+export module activation_functions;
+
 // x = Sum of all Weights * Input
 
 // Activation Functions
 // Most popular: ReLu, Sigmoid, tanh & ReLU
-namespace fn_actv {
+export namespace fn_actv {
 
     template<typename T>
     concept FloatingTypes = std::is_same_v<float, T> || std::is_same_v<double, T> || std::is_same_v<long double, T>;

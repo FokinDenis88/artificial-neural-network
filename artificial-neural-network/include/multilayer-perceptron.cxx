@@ -1,6 +1,13 @@
-﻿#ifndef MULTILAYER_PERCEPTRON_HPP_
-#define MULTILAYER_PERCEPTRON_HPP_
+﻿#ifndef MULTILAYER_PERCEPTRON_CXX_
+#define MULTILAYER_PERCEPTRON_CXX_
 
+module;
+
+#include <activation-functions.cxx>
+#include <derivatives-activation-functions.cxx>
+#include <derivatives-loss-function.cxx>
+#include <errors-mlp.cxx>
+#include <loss-function.cxx>
 #include <vector>
 #include <string>
 // For WriteEpochInfoInConsole
@@ -9,16 +16,13 @@
 
 #include "Eigen/Core"
 
-#include "node-mlp.hpp"
-#include "errors-mlp.hpp"
-#include "read-formatted-data-table-csv.hpp"
-#include "data-table.hpp"
-#include "activation-functions.hpp"
-#include "derivatives-activation-functions.hpp"
-#include "loss-function.hpp"
-#include "derivatives-loss-function.hpp"
+export module multilayer_perceptron;
 
-namespace mlp {
+import node_mlp;
+import read_formatted_data_table_csv;
+import data_table;
+
+export namespace mlp {
     using NetValuesType = NodeMLP::InputWeightOutputT;
     using NodesCountInLayersT = std::vector<size_t>;
     using TensorT = std::vector<NodeMLP::InputWeightOutputT>;
@@ -1043,4 +1047,4 @@ namespace mlp {
 
 }
 
-#endif // !MULTILAYER_PERCEPTRON_HPP_
+#endif // !MULTILAYER_PERCEPTRON_CXX_

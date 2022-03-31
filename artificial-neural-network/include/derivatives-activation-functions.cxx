@@ -1,6 +1,8 @@
 ﻿#ifndef DERIVATIVES_ACTIVATION_FUNCTIONS_HPP_
 #define DERIVATIVES_ACTIVATION_FUNCTIONS_HPP_
 
+module;
+
 #include <cmath>
 // For MaxoutFn
 #include <vector>
@@ -11,11 +13,13 @@
 
 #include "Eigen/Core"
 
+export module derivatives_activation_functions;
+
 // x = Sum of all Weights * Input
 
 // Derivatives of Activation Functions
 // Most popular: ReLu, Sigmoid, tanh & ReLU
-namespace fn_deriv {
+export namespace fn_deriv {
 
     template<typename T>
     concept FloatingTypes = std::is_same_v<float, T> || std::is_same_v<double, T> || std::is_same_v<long double, T>;

@@ -1,13 +1,17 @@
-﻿#ifndef NODE_MLP_HPP_
-#define NODE_MLP_HPP_
+﻿#ifndef NODE_MLP_CXX_
+#define NODE_MLP_CXX_
+
+module;
 
 #include <vector>
 #include <utility>
 
-#include "activation-functions.hpp"
-#include "errors-mlp.hpp"
+export module node_mlp;
 
-namespace mlp {
+import activation_functions;
+import errors_mlp;
+
+export namespace mlp {
     constexpr double default_weight{ 0.01 };
 
     // Multilayer Perceptron Neuron = NodeMLP
@@ -373,4 +377,4 @@ namespace mlp {
     };
 }
 
-#endif // !NODE_MLP_HPP_
+#endif // !NODE_MLP_CXX_

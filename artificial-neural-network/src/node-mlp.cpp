@@ -1,9 +1,12 @@
-#include "node-mlp.hpp"
+module;
 
 #include <exception>
 #include <stdexcept>
 #include <random>
 #include <cmath>
+
+module node_mlp;
+//import node_mlp;
 
 namespace mlp { //public
 
