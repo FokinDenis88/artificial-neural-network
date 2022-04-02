@@ -10,7 +10,6 @@ module;
 #include <exception>
 #include <stdexcept>
 
-
 #include "Eigen/Core"
 
 export module derivatives_activation_functions;

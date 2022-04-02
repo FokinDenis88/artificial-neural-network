@@ -41,6 +41,7 @@ export namespace fn_actv {
     // Logistic, sigmoid, or soft step
     template <FloatingTypes T = double>
     inline T SigmoidLogisticFn(const T x) {
+    	// TODO: When using modules shows
         return 1 / (1 + std::exp(-x));
     };
     // f(x) = 1/(1+exp^(-x))
