@@ -1,4 +1,4 @@
-﻿#ifndef LOSS_FUNCTION_HPP_
+#ifndef LOSS_FUNCTION_HPP_
 #define LOSS_FUNCTION_HPP_
 
 #include <cmath>

@@ -1,9 +1,0 @@
-[submodule "artificial-neural-network/external/file-stream-wrapper"]
-	path = artificial-neural-network/external/file-stream-wrapper
-	url = https://github.com/FokinDenis88/file-stream-wrapper.git
-[submodule "artificial-neural-network/external/regex"]
-	path = artificial-neural-network/external/regex
-	url = https://github.com/boostorg/regex.git
-[submodule "artificial-neural-network/external/eigen"]
-	path = artificial-neural-network/external/eigen
-	url = https://github.com/libigl/eigen.git

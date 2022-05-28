@@ -1,4 +1,4 @@
-﻿#ifndef NODE_MLP_HPP_
+#ifndef NODE_MLP_HPP_
 #define NODE_MLP_HPP_
 
 #include <vector>
@@ -8,6 +8,8 @@
 #include "errors-mlp.hpp"
 
 namespace mlp {
+    class NodeMLP;
+
     constexpr double default_weight{ 0.01 };
 
     // Multilayer Perceptron Neuron = NodeMLP
@@ -167,7 +169,7 @@ namespace mlp {
         inline void AddEdgeToBias(InputWeightOutputT* const bias_output, const InputWeightOutputT weight = default_weight) {
             edges_.emplace_back(bias_output, weight, nullptr);
         }
-        
+
         // Delete all links between current node and other nodes in neural network
         inline void DeleteAllEdges() { edges_.clear(); };
         // ResetLinks Clears all pairs in input_weights, and sets weights to default values
@@ -179,7 +181,7 @@ namespace mlp {
         inline const InputWeightOutputT GetWeight(const long index) const {
             // High performance cost
             //if (index >= edges_.size()) { throw ErrorRuntimeMLP("There is no such weight. index is out of range in GetWeight."); }
-            return edges_[index].weight; 
+            return edges_[index].weight;
         };
         inline const std::vector<InputWeightOutputT> GetWeights() const {
             std::vector<InputWeightOutputT> weights;
@@ -191,15 +193,15 @@ namespace mlp {
         };
         inline ActivationFunctionType GetActivationFunctionType() const { return activation_function_type_; };
         inline const InputWeightOutputT GetOutput() const { return output_; };
-        
+
         inline const size_t GetIndex() const { return index_; };
 
 
         inline void SetEdges(const Edges& edges_p) { edges_ = edges_p; };
         inline void SetEdges(const long index, const Edge& edge_p) { edges_[index] = edge_p; };
-        inline void SetWeight(const long index, const InputWeightOutputT weight) { 
+        inline void SetWeight(const long index, const InputWeightOutputT weight) {
             if (index >= edges_.size()) { throw ErrorRuntimeMLP("There is no such weight. index is out of range in GetWeight."); }
-            edges_[index].weight = weight; 
+            edges_[index].weight = weight;
         };
         /*inline void SetWeights(const std::vector<double> weights) {
             input_n_weights_.resize(weights.size());
@@ -213,11 +215,11 @@ namespace mlp {
             output_ = result;
         }
 
-        inline void ResizeEdgesVec(const size_t size) { 
+        inline void ResizeEdgesVec(const size_t size) {
             size_t old_size{ edges_.size() };
             edges_.resize(size); //Clear old links
             for (long i = old_size; i < size; ++i) { // set weights of new links to defauls; i = old_size - index of next new elem
-                edges_[i].weight = default_weight; 
+                edges_[i].weight = default_weight;
             }
         };
 
@@ -257,7 +259,7 @@ namespace mlp {
         // Y = output of current neuron
         // 2 variant of formula: wij = xi*xj
         // weights updated after every training example
-        // At the start, values of all weights are set to zero. 
+        // At the start, values of all weights are set to zero.
         // no reflexive connections allowed
         // Unstable learning rule
         // Type of Learning = Unsupervised Learning
@@ -340,7 +342,7 @@ namespace mlp {
         // The process by which a Multi Layer Perceptron learns is called the Backpropagation algorithm
         void BackPropagationAlgorithm();
 
-    
+
     // Reinforcement
 
         void DeepReinforcementLearning();
@@ -370,7 +372,7 @@ namespace mlp {
 
         // Index in vector layer of neuron
         size_t index_{};
-    };
-}
+    }; // !class NodeMLP
+} // !namespace mlp
 
 #endif // !NODE_MLP_HPP_

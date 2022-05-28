@@ -23,7 +23,7 @@ namespace mlp {
                 auto end{ std::chrono::steady_clock::now() };
                 auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 
-                //mlp::MultiLayerPerceptron my_ann(mlp::NodesCountInLayersT{ 1, 100, 300, 500, 700, 3 }, 
+                //mlp::MultiLayerPerceptron my_ann(mlp::NodesCountInLayersT{ 1, 100, 300, 500, 700, 3 },
                 mlp::MultiLayerPerceptron my_ann(mlp::NodesCountInLayersT{ 1, 10, 100, 1 },
                                                 mlp::NodeMLP::ActivationFunctionType::Sigmoid_Logistic_soft_step,
                                                 mlp::NodeMLP::ActivationFunctionType::Sigmoid_Logistic_soft_step,
@@ -32,7 +32,7 @@ namespace mlp {
                 constexpr long long iterations_count{ 100 };
                 std::cout << std::setprecision(20);
 
-                
+
                 //mlp::TensorT letters{ 'a' };
                 mlp::TensorT letters{ 'a', 'b', 'c', 'd', 'e', 'f', 'g' };
                 mlp::TensorT numbers{ '1', '2', '3', '4', '5', '6', '7', '8' };
@@ -88,7 +88,7 @@ namespace mlp {
                 end = std::chrono::steady_clock::now();
                 elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
                 std::cout << "Elapsed time Process Neurons by MatrixForm: " << elapsed_time << " miliseconds\n\n";
-                // !Test of matrix form Processing      
+                // !Test of matrix form Processing
 
                 my_ann.ProcessNDisplayOneInput(numbers);
                 my_ann.ProcessNDisplayOneInput(others);

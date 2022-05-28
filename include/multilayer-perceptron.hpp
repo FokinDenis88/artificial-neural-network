@@ -1,4 +1,4 @@
-﻿#ifndef MULTILAYER_PERCEPTRON_HPP_
+#ifndef MULTILAYER_PERCEPTRON_HPP_
 #define MULTILAYER_PERCEPTRON_HPP_
 
 #include <vector>
@@ -19,13 +19,15 @@
 #include "derivatives-loss-function.hpp"
 
 namespace mlp {
+    class MultiLayerPerceptron;
+
     using NetValuesType = NodeMLP::InputWeightOutputT;
     using NodesCountInLayersT = std::vector<size_t>;
     using TensorT = std::vector<NodeMLP::InputWeightOutputT>;
 
     // TODO: Variable for undone derivatives
     constexpr NetValuesType stub_var = 1.0;
-    
+
     // In BrainWave, the default learning rate is 0.25 and the default momentum parameter is 0.9.
     // Hence the default value of weight decay in fastai is actually 0.01
 
@@ -69,15 +71,16 @@ namespace mlp {
 
     constexpr NodeMLP::InputWeightOutputT default_bias_output{ 1.0 };
 
-    constexpr char kSavedMLP_Folder[]{ "./nets/" };
-    constexpr char kInputDatabasesFolder[]{ "./databases/" };
-    constexpr char kInputDataF_Extension[]{ ".csv" };
-    constexpr char kMLP_F_Extension[]{ ".mlp" };
+    const std::string kProjectFolder{ "../../" };
+    const std::string kSavedMLP_Folder{ kProjectFolder + "nets/" };
+    const std::string kInputDatabasesFolder{ kProjectFolder + "databases/" };
+    const std::string kInputDataF_Extension{ ".csv" };
+    const std::string kMLP_F_Extension{ ".mlp" };
 
 // Forward Declaration Section
     // For weights change calculations
     template<typename FuncT> FuncT* const DerivFuncPtr;
-    
+
 // !Forward Declaration Section
 
     //https://machinelearningmastery.com/loss-and-loss-functions-for-training-deep-learning-neural-networks/
@@ -89,7 +92,7 @@ namespace mlp {
     //Binary Classification Problem
     //    A problem where you classify an example as belonging to one of two classes.
     //
-    //    The problem is framed as predicting the likelihood of an example belonging to class one, 
+    //    The problem is framed as predicting the likelihood of an example belonging to class one,
     //    e.g.the class that you assign the integer value 1, whereas the other class is assigned the value 0.
     //
     //    Output Layer Configuration : One node with a sigmoid activation unit.
@@ -356,7 +359,7 @@ namespace mlp {
 
         // Converting imported database to input target vectors
         template<size_t kColumnCount, typename ColumnT = float>
-        void ConvertDatabaseToInputTarget(const DataTableArray<kColumnCount, ColumnT>& database_p, std::vector<TensorT>& input_p, 
+        void ConvertDatabaseToInputTarget(const DataTableArray<kColumnCount, ColumnT>& database_p, std::vector<TensorT>& input_p,
                                           std::vector<TensorT>& target_p) {
             const size_t database_data_rows_count{ database_p.data_rows.size() };
             const size_t input_tensor_size{ layers_dimension_[0] };
@@ -402,11 +405,11 @@ namespace mlp {
         //    if (target.size() == 0) { throw ErrorRuntimeMLP("Target vector is empty in SupervisedLearnNodeMLP."); }
         //    if (input.size() != target.size()) {
         //        throw ErrorRuntimeMLP("Different dimensions of target vector & input vector in SupervisedLearnNodeMLP."); }
-        //    if (input[0].size() != GetFirstLayerSize()) { 
+        //    if (input[0].size() != GetFirstLayerSize()) {
         //        throw ErrorRuntimeMLP("Error in dimension of input Tensor in SupervisedLearnNodeMLP."); }
-        //    if (target[0].size() != GetLastLayerSize()) { 
+        //    if (target[0].size() != GetLastLayerSize()) {
         //        throw ErrorRuntimeMLP("Error in dimension of target Tensor in SupervisedLearnNodeMLP."); }
-        // 
+        //
         //    InitLearningProcessNode(input);   // Starts new process of network learning
         //    std::chrono::steady_clock::time_point start{};
         //    std::chrono::steady_clock::time_point end{};
@@ -568,7 +571,7 @@ namespace mlp {
             ResizePredictionErrorPercent();
         };
         inline void SetPermissiblePredictionError(const double value) { permissible_prediction_error_ = value; };
-        inline void SetIsErrorForEachOutput(const bool flag) { 
+        inline void SetIsErrorForEachOutput(const bool flag) {
             is_error_for_each_output = flag;
             ResizePredictionErrorPercent();
         };
@@ -812,7 +815,7 @@ namespace mlp {
         // Write in console epoch info
         inline void WriteEpochInfoInConsole() {
     // Critical to performance code section. Don't use cls.
-            //system("cls"); 
+            //system("cls");
             std::cout << "Current Epoch index = " << current_epoch_;
             std::cout << "\nMax epoch index = " << max_epoch_index_ << '\n';
     // !Critical to performance code section
@@ -880,7 +883,7 @@ namespace mlp {
 
         // Vector of Target values
         TensorT target_{};
-        
+
         TopologyType topology_{ TopologyType::Feed_Forward };
 
         // Activation function of hidden layer
@@ -984,11 +987,11 @@ namespace mlp {
         std::vector<size_t> layers_dimension_{};
 
 
-        // ANN Name - user defined 
+        // ANN Name - user defined
         //std::string ann_name_{};
 
         // Decay. Decay serves to settle the learning in a nice place and avoid oscillations, a situation that may arise when a too high constant learning rate makes the learning jump back and forth over a minimum, and is controlled by a hyperparameter.
-        // Momentum. Momentum is analogous to a ball rolling down a hill; we want the ball to settle at the lowest point of the hill 
+        // Momentum. Momentum is analogous to a ball rolling down a hill; we want the ball to settle at the lowest point of the hill
         //
         // Adaptive learning rate
         // The issue with learning rate schedules is that they all depend on hyperparameters that must be manually chosen for each given learning session and may vary greatly depending on the problem at hand or the model used.
@@ -1000,9 +1003,10 @@ namespace mlp {
         task_;
         learning_type;
         learning_rules_;*/
-    };
 
-    
+    }; // !class MultiLayerPerceptron
+
+
 // Helper functions
 
     // Load input_ptr data for neural network from csv file excel table
@@ -1038,9 +1042,9 @@ namespace mlp {
         return (input_count + output_count) / 2;
     }
 // !Rules for seting hidden layer
-    
+
 // !Helper functions
 
-}
+} // !namespace mlp
 
 #endif // !MULTILAYER_PERCEPTRON_HPP_

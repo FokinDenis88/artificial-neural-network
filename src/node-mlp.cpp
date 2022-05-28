@@ -179,5 +179,5 @@ namespace mlp { //public
 // Reinforcement
 
 //!SupervisedLearnNodeMLP Neuron====================================================
-    
-}
+
+} // !namespace mlp

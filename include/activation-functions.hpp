@@ -1,4 +1,4 @@
-﻿#ifndef ACTIVATION_FUNCTIONS_HPP_
+#ifndef ACTIVATION_FUNCTIONS_HPP_
 #define ACTIVATION_FUNCTIONS_HPP_
 
 #include <cmath>

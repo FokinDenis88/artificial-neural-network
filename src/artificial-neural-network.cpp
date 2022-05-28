@@ -1,4 +1,4 @@
-﻿//#include "Networks/main_network.h"
+//#include "Networks/main_network.h"
 //#include "Networks/zero_classifier.h"
 //#include "Networks/students_mark.h"
 #include "networks/binary-or.hpp"

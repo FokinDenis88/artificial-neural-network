@@ -27,7 +27,7 @@
 
 namespace mlp {
 //public=================================
-    
+
     MultiLayerPerceptron::MultiLayerPerceptron(const std::vector<size_t>& layers_dimension_p,
                                                NodeMLP::ActivationFunctionType hidden_layer_func_type_p,
                                                NodeMLP::ActivationFunctionType output_layer_func_type_p,
@@ -81,7 +81,7 @@ namespace mlp {
                 output_of_layers_[layer].conservativeResize(last_row_index + 1);
                 output_of_layers_[layer](last_row_index) = struct_mlp_.bias_output;
             }
-        } else if (layer == 0) { // First layer
+        } else if (0 == layer) { // First layer
             size_t nodes_in_input_layer_count{ struct_mlp_.output_of_input_layer.size() };
             for (size_t i = 0; i < nodes_in_input_layer_count; ++i) {
                 output_of_layers_[0](i) = struct_mlp_.output_of_input_layer[i];
@@ -90,7 +90,7 @@ namespace mlp {
             if (has_bias_) { output_of_layers_[0](nodes_in_input_layer_count) = struct_mlp_.bias_output; }
         } else { throw ErrorRuntimeMLP("Layer of neural network is below zero."); }
     }
-  
+
 
 // This Function is Less than 0.01% of performance of program
     void MultiLayerPerceptron::ForwardPropagateNode() {
@@ -120,7 +120,7 @@ namespace mlp {
 
 #pragma omp parallel for schedule(static)
             for (node = 0; node < nodes_count; ++node) { // Calc outputs of output layer
-                struct_mlp_.nodes_layers_n_edges[last_layer_indx][node].output_ = 
+                struct_mlp_.nodes_layers_n_edges[last_layer_indx][node].output_ =
                                                                     fn_actv::SoftmaxFn(output_layer_net_input_vec_, node, exp_sum);
             }
 // !Performance critical code block
@@ -131,7 +131,7 @@ namespace mlp {
     void MultiLayerPerceptron::SupervisedLearnMatrixMLP(const EpochIndexT iter_max_count, const TensorT& target) {
         // TODO: throw error
         // if (target.size() != layers_dimension_.back()) { throw ErrorRuntimeMLP("Error in dimension of target vector in SupervisedLearnNodeMLP."); }
-        
+
         target_ = target;
         //InitLearnMatrixMLP();
         const EpochIndexT imax = current_epoch_ + iter_max_count;
@@ -202,7 +202,7 @@ namespace mlp {
             for (int row = 0; row < rows_count; ++row) {
                 for (int column = 0, column_count = layers_dimension_[0]; column < column_count; ++column) {
                     if (min_input[column] != max_input[column]) { // if min = max NormalizeData will be nan & undefined / 0
-                        struct_mlp_.output_of_input_layer[column] = 
+                        struct_mlp_.output_of_input_layer[column] =
                                                 NormalizeValue(vec[row][column], min_input[column], max_input[column]);
                     }
                     else { struct_mlp_.output_of_input_layer = vec[row]; }
@@ -214,8 +214,8 @@ namespace mlp {
 
     void MultiLayerPerceptron::SupervisedLearnNodeMLP(std::vector<TensorT>& input, std::vector<TensorT>& target,
                                                       const EpochIndexT max_epoch_index_p, bool is_check_erorr_threshold) {
-        if (input.size() == 0) { throw ErrorRuntimeMLP("Input vector is empty in SupervisedLearnNodeMLP."); }
-        if (target.size() == 0) { throw ErrorRuntimeMLP("Target vector is empty in SupervisedLearnNodeMLP."); }
+        if (0 == input.size()) { throw ErrorRuntimeMLP("Input vector is empty in SupervisedLearnNodeMLP."); }
+        if (0 == target.size()) { throw ErrorRuntimeMLP("Target vector is empty in SupervisedLearnNodeMLP."); }
         if (input.size() != target.size()) {
             throw ErrorRuntimeMLP("Different dimensions of target vector & input vector in SupervisedLearnNodeMLP."); }
         if (input[0].size() != GetFirstLayerSize()) { throw ErrorRuntimeMLP("Error in dimension of input Tensor in SupervisedLearnNodeMLP."); }
@@ -228,9 +228,9 @@ namespace mlp {
         size_t tick_count{};
         max_epoch_index_ = max_epoch_index_p;
         size_t input_data_count{ input.size() };  // rows count
-        
+
         NormalizeData(input, target);
-        
+
         target_ = target[0];
         struct_mlp_.output_of_input_layer = input[0];
         ForwardPropagateNode(); // for first CheckPredictionError
@@ -238,7 +238,7 @@ namespace mlp {
                || to_check_prediction_error && !CheckPredictionError() && current_epoch_ <= max_epoch_index_) { // Iterate epochs
             if (to_show_learning_process_info) {
                 WriteEpochInfoInConsole();
-                if (current_epoch_ == 1) { start = std::chrono::steady_clock::now(); }
+                if (1 == current_epoch_) { start = std::chrono::steady_clock::now(); }
                 else {
                     std::cout << "Time left: " << (max_epoch_index_ - current_epoch_ + 1) * tick_count * 1e-9 << " seconds\n";
                     if (!loss_fn_average_history_.empty()) {
@@ -264,10 +264,10 @@ namespace mlp {
 
             if (to_save_loss_fn_mean_history_ || !to_save_loss_fn_mean_history_ && current_epoch_ == max_epoch_index_) { // Save history
                 // Mean, average of all loss values from input data set
-                loss_fn_average_history_.emplace_back(std::accumulate(loss_fn_values_.begin(), 
+                loss_fn_average_history_.emplace_back(std::accumulate(loss_fn_values_.begin(),
                                                    loss_fn_values_.end(), static_cast<NetValuesType>(0)) / loss_fn_values_.size());
             }
-            if (to_show_learning_process_info && current_epoch_ == 1) { // Show learning info
+            if (to_show_learning_process_info && 1 == current_epoch_) { // Show learning info
                 end = std::chrono::steady_clock::now();
                 tick_count = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
             }
@@ -332,7 +332,7 @@ namespace mlp {
 
     void MultiLayerPerceptron::RandomizeWeightsMLP(double min, double max) {
         for (OneLayerT& layer : struct_mlp_.nodes_layers_n_edges) {
-            std::for_each(std::execution::par_unseq, layer.begin(), layer.end(), 
+            std::for_each(std::execution::par_unseq, layer.begin(), layer.end(),
                           [&min, &max](NodeMLP& node) { node.RandomizeWeightsNode(min, max); });
         }
     }
@@ -351,13 +351,13 @@ namespace mlp {
 
         // BOM
         //file::WriteBOM(write_file_stream, file::BOMEnum::No_BOM);
-        
+
         // Topology
         file::ReadObjectInVecByte(&topology_, readed_data, obj_first_byte_index);
 
         // Hidden Layer Activation Function
         file::ReadObjectInVecByte(&hidden_layer_actv_func_type_, readed_data, obj_first_byte_index);
-        
+
         // Output Layer Activation Function
         file::ReadObjectInVecByte(&output_layer_actv_func_type_, readed_data, obj_first_byte_index);
 
@@ -426,7 +426,7 @@ namespace mlp {
 
                 // load weights
                 std::vector<NodeMLP::InputWeightOutputT> node_weights(node_weights_count);
-                file::ReadObjectInVecByte(&node_weights[0], readed_data, obj_first_byte_index, 
+                file::ReadObjectInVecByte(&node_weights[0], readed_data, obj_first_byte_index,
                                             sizeof(NodeMLP::InputWeightOutputT) * node_weights_count);
                 for (long k = 0; k < node_weights_count; ++k) {
                     struct_mlp_.nodes_layers_n_edges[i][j].SetWeight(k, node_weights[k]);
@@ -445,7 +445,7 @@ namespace mlp {
                                     file::OpenFile<std::basic_ofstream<unsigned char>>(file_path, file::OpenModeWriteBinaryRewrite) };
             // BOM
             //file::WriteBOM(write_file_stream, file::BOMEnum::No_BOM);
-            
+
             // Topology
             file::WriteSerializedDataFile(write_file_stream, &topology_);
 
@@ -579,7 +579,7 @@ namespace mlp {
 #pragma omp parallel for schedule(static)
             for (int node = 0; node < nodes_count;++node) { // nodes in second layer
             //for (NodeMLP& node : struct_mlp_.nodes_layers_n_edges[1]) { // nodes in second layer
-                //node.DeleteAllEdges(); // clear previous edges 
+                //node.DeleteAllEdges(); // clear previous edges
                 for (NodeMLP::InputWeightOutputT& input : struct_mlp_.output_of_input_layer) { // input
                     struct_mlp_.nodes_layers_n_edges[1][node].AddEdgeToInput(&input);
                 }
@@ -745,13 +745,13 @@ namespace mlp {
 
     void MultiLayerPerceptron::ConstantLRate() {
     }
-    
+
     void MultiLayerPerceptron::TimeBasedLRateSchedule() {
                                // Nu[n+1] = Nu[n] / (1 + d*n)
         learning_rate_ = learning_rate_/(1 + decay_ * current_epoch_);
     }
 
-    void MultiLayerPerceptron::StepBasedLRateSchedule() { 
+    void MultiLayerPerceptron::StepBasedLRateSchedule() {
                                         // Nu[n] = Nu[0]*d^(floor((1 + n)/r))
         learning_rate_ = learning_rate_initial_ * std::pow(decay_, std::floor((1 + current_epoch_) / epochs_drop_rate_));
     }
@@ -817,8 +817,8 @@ namespace mlp {
         // There is no bias in last layer
         {
             int last_layer_nodes_count = struct_mlp_.nodes_layers_n_edges[last_layer_indx].size();
-            if (output_layer_actv_func_type_ == NodeMLP::ActivationFunctionType::Softmax &&
-                    loss_func_type_ == LossFunctionType::Categorical_Crossentropy) { // Only Softmax last layer act func & cross entropy loss
+            if (NodeMLP::ActivationFunctionType::Softmax == output_layer_actv_func_type_ &&
+                LossFunctionType::Categorical_Crossentropy == loss_func_type_) { // Only Softmax last layer act func & cross entropy loss
                 // https://www.mldawn.com/back-propagation-with-cross-entropy-and-softmax/
                 // https://eli.thegreenplace.net/2016/the-softmax-function-and-its-derivative/
 #pragma omp parallel for schedule(static)
@@ -871,7 +871,7 @@ namespace mlp {
                         output = struct_mlp_.output_of_input_layer[j_node];
                     }
                 }
-                
+
                 NodeMLP::InputWeightOutputT sum{};
                 // There is no link between bias of next layer & previous layer
                 // So there is no bias nodes in children of current node
@@ -887,7 +887,7 @@ namespace mlp {
                         //k = node_in_next_layer.index_;
                         // delt[j] = o[j] * (1 - o[j]) * Sum[k in childer(j)](delt[k] * w[j, k])
                                                 // Sum[k in childer(j)](delt[k] * w[j, k])
-                        sum_values[k] = correction_matrix_[next_layer][k] * 
+                        sum_values[k] = correction_matrix_[next_layer][k] *
                                         struct_mlp_.nodes_layers_n_edges[next_layer][k].edges_[j_node].weight;
                         // Original Algorithm
                         //size_t k{ node_in_next_layer.GetIndex() };
@@ -910,7 +910,7 @@ namespace mlp {
                                            // delt[j] = 1 * Sum[k in childer(j)](delt[k]w[j, k]);
                     correction_matrix_[layer][j_node] = sum;
                 } else {                   // Derivative of Activation Function Hidden layer * Sum
-                                                        // (df(s) / dS) * Sum    ; 
+                                                        // (df(s) / dS) * Sum    ;
                                            // delt[j] = o[j] * (1 - o[j]) * Sum[k in childer(j)](delt[k]w[j, k])
                     correction_matrix_[layer][j_node] = CalcActivationFunctionDeriv(hidden_layer_actv_func_type_, output) * sum;
                     //correction_matrix_[layer][j_node] = output * (1 - output) * sum;
@@ -935,7 +935,7 @@ namespace mlp {
 
             // 99% of performance of CalcWeights
 #pragma omp parallel for schedule(static)
-            for (int j_node = 0; j_node < count_current_layer_nodes_with_edges_to_prev_layer; ++j_node) { 
+            for (int j_node = 0; j_node < count_current_layer_nodes_with_edges_to_prev_layer; ++j_node) {
             // 28 - 45%
                 //j = node in current layer with link to prev
                 int nodes_prev_layer_count = has_bias_ ? layers_dimension_[prev_layer] + 1 : layers_dimension_[prev_layer];
@@ -953,13 +953,13 @@ namespace mlp {
                     NodeMLP::InputWeightOutputT& dw{ delta_weights_[layer][j_node][i_node] };
                     NodeMLP::InputWeightOutputT output_i{};
                     if (prev_layer != 0) { // Not Second layer
-                        if (has_bias_ && i_node == nodes_prev_layer_count - 1) { // Is Bias
+                        if (has_bias_ && nodes_prev_layer_count - 1 == i_node) { // Is Bias
                             output_i = struct_mlp_.bias_output;
                         } else { // Is not Bias
                             output_i = struct_mlp_.nodes_layers_n_edges[prev_layer][i_node].GetOutput();
                         }
                     } else { // Is Second layer
-                        if (has_bias_ && i_node == nodes_prev_layer_count - 1) { // Is Bias
+                        if (has_bias_ && nodes_prev_layer_count - 1 == i_node) { // Is Bias
                             output_i = struct_mlp_.bias_output;
                         } else { // Is not Bias
                             output_i = struct_mlp_.output_of_input_layer[i_node];
@@ -969,11 +969,11 @@ namespace mlp {
 
     // delta_w[column,j](n) =         momentum * delta_w[column,j](n-1) + (1-momentum)*Nu*delt[j]*o[column]
                     dw = momentum_ * dw + (1 - momentum_) * learning_rate_ * correction_matrix_[layer][j_node] * output_i;  // 20%
-                
+
                                                                     // w[column,j](n) = w[column,j](n-1) - delta_w[column,j](n)
                     NodeMLP::InputWeightOutputT new_weight{ GetWeightIJ(layer, i_node, j_node) - dw };  // 30%
                     SetWeightIJ(layer, i_node, j_node, new_weight); // 30%
-                } 
+                }
                 // !70%
             } // !99%
         }
@@ -1007,7 +1007,7 @@ namespace mlp {
         std::for_each(std::execution::par_unseq, input_ptr.begin(), input_ptr.end(),
             [a, b](NodeMLP::InputWeightOutputT& value) { value *= a / b; });
     }
-    
+
 
     // Processing and Displaying one input vector. Node Form of processing.
     void MultiLayerPerceptron::ProcessNDisplayOneInputMtrx(const std::vector<NodeMLP::InputWeightOutputT>& input_vec) {
@@ -1046,6 +1046,6 @@ namespace mlp {
 
 // Helper Functions
 
-    
 
-} // !mlp
+
+} // !namespace mlp
