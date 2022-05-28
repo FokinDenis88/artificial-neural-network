@@ -1,0 +1,7 @@
+[submodule "external/regex"]
+	path = external/regex
+	url = https://github.com/boostorg/regex.git
+[submodule "external/file-stream-wrapper"]
+	path = external/file-stream-wrapper
+	url = git@gitlab.com:FokinDenis88/file-stream-wrapper.git
+	branch = develop
