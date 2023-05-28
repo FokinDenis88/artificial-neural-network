@@ -1,6 +1,4 @@
 # ArtificialNeuralNetwork
-
-## Description
 Multilayer Perceptron.
 
 ## Classes of Project
@@ -8,7 +6,8 @@ Multilayer Perceptron.
 
 **NodeMLP**
 
-
+## Installation
+cmake -B build/visual-studio-cmake
 
 ## Support
 Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
@@ -31,4 +30,3 @@ MIT License. Open source code.
 
 ## Project status
 Active
-
