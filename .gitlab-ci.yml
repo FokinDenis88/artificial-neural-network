@@ -7,7 +7,7 @@ pages:
       - ls
       - doxygen doc/Doxyfile
       - ls
-      - mv doc/doxygen/html/ public/
+      - mv doxygen/html/ public/
 
   environment: production
   artifacts:
