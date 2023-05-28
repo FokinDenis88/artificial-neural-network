@@ -46,6 +46,8 @@ set(NETWORKS_FILTER
 
 find_package(OpenMP REQUIRED)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
 # Add source to this project's executable.
 add_executable(artificial-neural-networks ${SOURCES}
                 ${HEADER_FILES_FILTER} ${DOC_FILTER} ${NETWORKS_FILTER})
@@ -104,3 +106,7 @@ set_property(TARGET artificial-neural-networks PROPERTY SUBSYSTEM CONSOLE)
 #OpenMP
 #find_package(OpenMP REQUIRED)
 #target_link_libraries(artificial-neural-networks PRIVATE OpenMP::OpenMP_CXX)
+
+#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
