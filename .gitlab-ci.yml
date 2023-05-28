@@ -4,9 +4,9 @@ image: alpine
 pages:
   script:
       - apk update && apk add doxygen #graphviz ttf-freefont
-      - ls
+      #- ls
       - doxygen doc/Doxyfile
-      - ls
+      #- ls
       - mv doxygen/html/ public/
 
   environment: production
