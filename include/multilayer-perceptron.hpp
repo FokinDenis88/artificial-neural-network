@@ -26,6 +26,8 @@ namespace mlp {
     using TensorT = std::vector<NodeMLP::InputWeightOutputT>;
 
     // TODO: Variable for undone derivatives
+    // TODO: Правильно задокументировать код проекта artificial intellect. Добавить @param, @return. Изменить в enum ничейный вариант решения на None. Break в switch default. Blank line in headers and cpp. Заменить map на unorded_map.
+    // TODO: Правильно переделать комментарии под стандарт JavaDoc
     constexpr NetValuesType stub_var = 1.0;
 
     // In BrainWave, the default learning rate is 0.25 and the default momentum parameter is 0.9.
@@ -115,7 +117,7 @@ namespace mlp {
     // Unsupervised Learing: Classtering, Associations. Input data.
     // Reinforcement Learning: Games, Robots. Input depends on output.
 
-    /** Classic Multilayer Perceptron */
+    /// Classic Multilayer Perceptron
     class MultiLayerPerceptron {
     public:
 
@@ -131,8 +133,8 @@ namespace mlp {
         using EpochIndexT = unsigned long long;
 
 
-        // All types of Topologies
-        // https://towardsdatascience.com/the-mostly-complete-chart-of-neural-networks-explained-3fb6f2367464
+        /// All types of Topologies
+        /// https://towardsdatascience.com/the-mostly-complete-chart-of-neural-networks-explained-3fb6f2367464
         enum class TopologyType : unsigned int {
             Perceptron = 0,
             Feed_Forward,
@@ -216,7 +218,7 @@ namespace mlp {
             Adam
         };
 
-        // Methods of changing Learning rate by time in process of learning
+        /// Methods of changing Learning rate by time in process of learning
         enum class LearningRateSchedule {
             Time_based = 0,
             Step_based,
@@ -226,30 +228,30 @@ namespace mlp {
 
 
         struct StructureMLP {
-            // service variable for linking to bias node
-            // In Edge input_ptr is not const, so bias_output is not const
+            /// service variable for linking to bias node
+            /// In Edge input_ptr is not const, so bias_output is not const
             NodeMLP::InputWeightOutputT bias_output{ default_bias_output };
 
-            // Input values of neural network. It is not neurons of network.
-            // nodes_layers_[0] is First Input Layer of network.
-            // output of input layer without bias node output
+            /// Input values of neural network. It is not neurons of network.
+            /// nodes_layers_[0] is First Input Layer of network.
+            /// output of input layer without bias node output
             TensorT output_of_input_layer{};
 
             /*TensorT convolutional_layers{};
             TensorT encoding_layers{};
             TensorT decoding_layers{};*/
 
-            // Layers of nodes depends from topology of neural network. Start from second layer of neural network
-            // Calculation of neural network is going from second layer to the last
-            // nodes_layers_[0] is First Input Layer of network. There is no calculation here, only weights.
-            // nodes_layers_[0] is empty
+            /// Layers of nodes depends from topology of neural network. Start from second layer of neural network
+            /// Calculation of neural network is going from second layer to the last
+            /// nodes_layers_[0] is First Input Layer of network. There is no calculation here, only weights.
+            /// nodes_layers_[0] is empty
             AllNodesLayersT nodes_layers_n_edges{};
         };
 
 
         //MultiLayerPerceptron() = default;
 
-        // Create neural network with custom design
+        /// Create neural network with custom design
         MultiLayerPerceptron(const std::vector<size_t>& layers_dimension_p,
                              NodeMLP::ActivationFunctionType hidden_layer_func_type_p,
                              NodeMLP::ActivationFunctionType output_layer_func_type_p,
@@ -259,20 +261,20 @@ namespace mlp {
                              const bool to_normalize_data_p = true,
                              const bool has_bias_p = true);
 
-        // X = W * I; X = output of layer befor activation function;
-        // W - weight matrix of layer; I - input_ptr vector of layer
-        // Output = func_activation(X); output of layer
+        /// X = W * I; X = output of layer befor activation function;
+        /// W - weight matrix of layer; I - input_ptr vector of layer
+        /// Output = func_activation(X); output of layer
         void ForwardPropagateMatrix();
-        // Calculate the output value of ALL neural network for input_ptr values
+        /// Calculate the output value of ALL neural network for input_ptr values
         inline void ForwardPropagateMatrix(const TensorT& input_ptr) {
             SetInputMLP(input_ptr);
             ForwardPropagateMatrix();
         }
         void ProcessOutputOfLayerMtx(size_t layer);
 
-        // Calculate the output value of ALL neural network for input values
+        /// Calculate the output value of ALL neural network for input values
         void ForwardPropagateNode();
-        // Calculate the output value of ALL neural network for input values
+        /// Calculate the output value of ALL neural network for input values
         inline void ForwardPropagateNode(const TensorT& input_ptr) {
             SetInputMLP(input_ptr);
             ForwardPropagateNode();
@@ -285,12 +287,12 @@ namespace mlp {
             SetInputMLP(input_ptr);
             SupervisedLearnMatrixMLP(iter_count, target);
         }
-        // Когда ошибка равномерно распределяется обратно от выходов в соответствии с вкладом весов в ошибку
-        // Веса с большим вкладом больше меняются. Распределение весов: W1 / (W1+W2)
-        // f(Sum(w[correct]*i)) = Y+e; w[correct] - это вес, который мы ищемю; i - это вход в узел; Y - ошибочное значение выхода с узла;
-        // e - ошибка, распределенная на данный узел с выходов нейронной сети
-        // Ошибка[скрытый] = W[транспонированная][скрытый_выходной] * Ошибка[выходной] - матричная запись
-        // Calculate Error from last layer to previous
+        /// Когда ошибка равномерно распределяется обратно от выходов в соответствии с вкладом весов в ошибку
+        /// Веса с большим вкладом больше меняются. Распределение весов: W1 / (W1+W2)
+        /// f(Sum(w[correct]*i)) = Y+e; w[correct] - это вес, который мы ищемю; i - это вход в узел; Y - ошибочное значение выхода с узла;
+        /// e - ошибка, распределенная на данный узел с выходов нейронной сети
+        /// Ошибка[скрытый] = W[транспонированная][скрытый_выходной] * Ошибка[выходной] - матричная запись
+        /// Calculate Error from last layer to previous
         void BackPropagationOfError();
         // Тарик Рашид Создаем нейронную сеть стр. 97
 
@@ -333,16 +335,16 @@ namespace mlp {
         //}
 
 
-        //Making min & max vectors for normalization of input values
+        /// Making min & max vectors for normalization of input values
         void FindMinMax(const std::vector<TensorT>& input_vec_p,
             std::vector<NodeMLP::InputWeightOutputT>& min_input_p,
             std::vector<NodeMLP::InputWeightOutputT>& max_input_p);
 
-        // Scale input to range from 0 to 1
+        /// Scale input to range from 0 to 1
         void NormalizeVector(std::vector<TensorT>& vec);
 
-        // If to_normalize_data_ = true, normalize data by formula
-        // Normalized data = (x - min) / (max - min)
+        /// If to_normalize_data_ = true, normalize data by formula
+        /// Normalized data = (x - min) / (max - min)
         inline void NormalizeData(std::vector<TensorT>& input_vec_p,
             std::vector<TensorT>& target_p) {
             if (to_normalize_data_) {
@@ -357,7 +359,7 @@ namespace mlp {
             }
         }
 
-        // Converting imported database to input target vectors
+        /// Converting imported database to input target vectors
         template<size_t kColumnCount, typename ColumnT = float>
         void ConvertDatabaseToInputTarget(const DataTableArray<kColumnCount, ColumnT>& database_p, std::vector<TensorT>& input_p,
                                           std::vector<TensorT>& target_p) {
@@ -464,64 +466,64 @@ namespace mlp {
         //    CoutPredictionErrorPercent();
         //}
 
-        // 1) Initialize weight to random small value
-        // 2) Repeat Iteration number of steps:
-        // 1. Process Network with net input_ptr x
-        // 2. Correction(delt = correction) for all outputs (o = output):
-        // delt[k] = - o[k]*(1 - o[k])*(t[k] - o[k])
-        // 3. delt[j] = o[j]*(1 - o[j])* Sum[k in childer(j)](delt[k]w[j,k])
-        // 4. For Bias Node: delt[j] = 1 * Sum[k in childer(j)](delt[k]w[j,k]); derivative of identity function of bias node = 1
-        // 3) For all links in neural network
-        // delta_w[i,j](n) = default_momentum*delta[i,j](n-1) + (1-default_momentum)*Nu*delt[j]*o[i]
-        // w[i,j](n) = w[i,j](n-1) - delta_w[i,j](n)
-        // Epochs indexes start from 0
-        // Input & target data can be changed by normalization operation
+        /// 1) Initialize weight to random small value
+        /// 2) Repeat Iteration number of steps:
+        /// 1. Process Network with net input_ptr x
+        /// 2. Correction(delt = correction) for all outputs (o = output):
+        /// delt[k] = - o[k]*(1 - o[k])*(t[k] - o[k])
+        /// 3. delt[j] = o[j]*(1 - o[j])* Sum[k in childer(j)](delt[k]w[j,k])
+        /// 4. For Bias Node: delt[j] = 1 * Sum[k in childer(j)](delt[k]w[j,k]); derivative of identity function of bias node = 1
+        /// 3) For all links in neural network
+        /// delta_w[i,j](n) = default_momentum*delta[i,j](n-1) + (1-default_momentum)*Nu*delt[j]*o[i]
+        /// w[i,j](n) = w[i,j](n-1) - delta_w[i,j](n)
+        /// Epochs indexes start from 0
+        /// Input & target data can be changed by normalization operation
         void SupervisedLearnNodeMLP(std::vector<TensorT>& input_vec_p, std::vector<TensorT>& target,
                                     const EpochIndexT max_epoch_index_p, bool is_check_erorr_threshold = false);
         // https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%BD%D0%BE%D0%B3%D0%BE_%D1%80%D0%B0%D1%81%D0%BF%D1%80%D0%BE%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B8
         // Learning algorithm will work until it reaches erorrs_threshold errors measure
 
 
-        // Generalization error is a measure of how accurately an algorithm is able to predict outcome values for previously unseen data
-        // https://en.wikipedia.org/wiki/Generalization_error
+        /// Generalization error is a measure of how accurately an algorithm is able to predict outcome values for previously unseen data
+        /// https://en.wikipedia.org/wiki/Generalization_error
         void CalcGeneralizationError();
-        // Correctness, Error measure, performance of neural network
-        // Метод наименьших квадратов. Cумма квадратов расстояний от выходных сигналов сети до их требуемых значений
-        // E({w[ij]}) = 1/2*Sum[k in output2]((t[k]-o[k])^2)
-        // t[k] = target value of output layer
+        /// Correctness, Error measure, performance of neural network
+        /// Метод наименьших квадратов. Cумма квадратов расстояний от выходных сигналов сети до их требуемых значений
+        /// E({w[ij]}) = 1/2*Sum[k in output2]((t[k]-o[k])^2)
+        /// t[k] = target value of output layer
         void AnalyzeMLP();
         // https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%BD%D0%BE%D0%B3%D0%BE_%D1%80%D0%B0%D1%81%D0%BF%D1%80%D0%BE%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B8
         // Функция потерь. https://ru.wikipedia.org/wiki/%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D1%8F_%D0%BF%D0%BE%D1%82%D0%B5%D1%80%D1%8C
 
-        // True if error target - output <= mean_absolute_error_percent_ percents for each output
-        // If continuation of learning will reduce quality of results you need to stop learning process
+        /// True if error target - output <= mean_absolute_error_percent_ percents for each output
+        /// If continuation of learning will reduce quality of results you need to stop learning process
         bool CheckPredictionError();
-        // For matrix form of learning process
+        /// For matrix form of learning process
         bool CheckPredictionErrorMatrix();
 
-        // Needed in the beggining of learnning process in some learning algorighms
+        /// Needed in the beggining of learnning process in some learning algorighms
         void RandomizeWeightsMLP(double min = 0.0001, double max = 20.0);
-        // Randomization corrected by count of weights linked to node
-        // formula: 1 / sqrt(edges_count)
+        /// Randomization corrected by count of weights linked to node
+        /// formula: 1 / sqrt(edges_count)
         void RandomizeAllWeightsByNodesCountMLP();
 
 
 
 
 
-        // Load neural network from file
-        // file_name without full path & without extension
+        /// Load neural network from file
+        /// file_name without full path & without extension
         void LoadMLP(const std::string& file_name);
 
-        // Save neural network's weights, topology, activation functions to file
-        // file_name without full path & without extension
+        /// Save neural network's weights, topology, activation functions to file
+        /// file_name without full path & without extension
         void SaveMLP(const std::string& file_name);
 
 
         TensorT GetInputMLP() const { return struct_mlp_.output_of_input_layer; };
         inline const AllNodesLayersT& GetNodesLayers() const { return struct_mlp_.nodes_layers_n_edges; };
         inline const size_t GetLayersCount() const { return struct_mlp_.nodes_layers_n_edges.size(); };
-        // Get count of nodes in layer
+        /// Get count of nodes in layer
         inline const size_t GetLayerSize(const size_t layer) const { return struct_mlp_.nodes_layers_n_edges[layer].size(); };
         inline const TopologyType GetTopology() const { return topology_; };
         inline const NodeMLP::ActivationFunctionType GetHiddenLayerActivationFunction() const { return hidden_layer_actv_func_type_; };
@@ -530,7 +532,7 @@ namespace mlp {
         inline const double GetLearningRate() const { return learning_rate_; };
         inline const double GetInitialLearningRate() const { return learning_rate_initial_; };
         inline const double GetDecay() const { return decay_; };
-        // Needed for StepBased learning rate schedule algorithm
+        /// Needed for StepBased learning rate schedule algorithm
         inline const double GetLearningEpochsDropRate() const { return epochs_drop_rate_; };
         inline const TensorT& GetTarget() const { return target_; };
         inline const double GetToCheckPredictionError() const { return to_check_prediction_error; };
@@ -589,7 +591,7 @@ namespace mlp {
             //ConnectSecondLayerToInput(); // Reconnect first layer
         };
         inline void SetToNormalizeData(bool to_normalize_data_p) { to_normalize_data_ = to_normalize_data_p; }
-        // Parametr needed for learning rate schedule StepBased algorithm
+        /// Parametr needed for learning rate schedule StepBased algorithm
         inline void SetDropRate(double drop_rate) { epochs_drop_rate_ = drop_rate; }
 
         inline void ResetLearningRate() { learning_rate_ = learning_rate_initial_; };
@@ -597,21 +599,21 @@ namespace mlp {
 
         // Helper functions
 
-                // Processing and Displaying one input vector. Node Form of processing.
+        /// Processing and Displaying one input vector. Node Form of processing.
         void ProcessNDisplayOneInputMtrx(const std::vector<NodeMLP::InputWeightOutputT>& input_vec);
-        // Processing and Displaying many input vectors. Node Form of processing.
+        /// Processing and Displaying many input vectors. Node Form of processing.
         void ProcessNDisplayAllInputMtrx(const std::vector<std::vector<NodeMLP::InputWeightOutputT>>& all_input_vec);
 
-        // Processing and Displaying one input vector. Node Form of processing.
+        /// Processing and Displaying one input vector. Node Form of processing.
         void ProcessNDisplayOneInput(const std::vector<NodeMLP::InputWeightOutputT>& input_vec);
-        // Processing and Displaying many input vectors. Node Form of processing.
+        /// Processing and Displaying many input vectors. Node Form of processing.
         void ProcessNDisplayAllInput(const std::vector<std::vector<NodeMLP::InputWeightOutputT>>& all_input_vec);
-        // Helper functions
+        /// Helper functions
 
 
     private:
-        // Gets weight between node i of layer-1 & node j of layer. j is children(closer to output of network) of i
-        // i, j starts from 0
+        /// Gets weight between node i of layer-1 & node j of layer. j is children(closer to output of network) of i
+        /// i, j starts from 0
         inline const NodeMLP::InputWeightOutputT GetWeightIJ(const size_t layer_j, const size_t i, const size_t j) const {
             return struct_mlp_.nodes_layers_n_edges[layer_j][j].GetWeight(i);
         }
@@ -619,11 +621,11 @@ namespace mlp {
             return struct_mlp_.nodes_layers_n_edges[layer_j][j].SetWeight(i, value);
         }
 
-        // Volatile variant of getting last node in layer
+        /// Volatile variant of getting last node in layer
         inline NodeMLP& GetLastNodeInLayerV(const size_t layer) { return *std::prev(struct_mlp_.nodes_layers_n_edges[layer].end()); };
-        // Volatile reference to layer
+        /// Volatile reference to layer
         inline OneLayerT& GetLayerV(const size_t index) { return struct_mlp_.nodes_layers_n_edges[index]; }
-        // Volatile type of GetLastLayer func
+        /// Volatile type of GetLastLayer func
         inline OneLayerT& GetLastLayerV() { return struct_mlp_.nodes_layers_n_edges[GetLastLayerIndex()]; }
 
         inline NetValuesType CalcActivationFunction(NodeMLP::ActivationFunctionType func_act_type_p,
@@ -686,8 +688,8 @@ namespace mlp {
             }
         }
 
-        // Calculate loss function vector on all input data & mean loss function to measure the accuracy of network
-        // Evaluate the accuracy of the learned function. After parameter adjustment and learning, the performance of the resulting function should be measured on a test set that is separate from the training set.
+        /// Calculate loss function vector on all input data & mean loss function to measure the accuracy of network
+        /// Evaluate the accuracy of the learned function. After parameter adjustment and learning, the performance of the resulting function should be measured on a test set that is separate from the training set.
         inline NetValuesType CalcLossFunction(const std::vector<NetValuesType>& output,
             const std::vector<NetValuesType>& target) {
             switch (loss_func_type_) {
@@ -717,8 +719,8 @@ namespace mlp {
             }
         }
 
-        //inline NetValuesType CalcLossFunctionDeriv(const std::vector<NetValuesType>& output, const std::vector<NetValuesType>& target) {
-        // dE / do[j]
+        ///inline NetValuesType CalcLossFunctionDeriv(const std::vector<NetValuesType>& output, const std::vector<NetValuesType>& target) {
+        /// dE / do[j]
         inline NetValuesType CalcLossFunctionDerivRespectOutputJ(const NetValuesType output, const NetValuesType target,
                                                                  const size_t k_max = 0) {
             switch (loss_func_type_) {
@@ -753,12 +755,12 @@ namespace mlp {
         void CalcPredictionErrorPercent();
         void CoutPredictionErrorPercent();
 
-        // Connects all node links except first layer & input_ptr
+        /// Connects all node links except first layer & input_ptr
         void CreateAllEdges();
-        // Connect second layer = nodes_layers_[0]
+        /// Connect second layer = nodes_layers_[0]
         void ConnectSecondLayerToInput();
 
-        // Initialization for learning process & network processing
+        /// Initialization for learning process & network processing
         inline void InitLearningProcessNode(std::vector<TensorT>& input_vec) {
             ResetLearningRate();
             ResetDeltaWeights();
@@ -773,7 +775,7 @@ namespace mlp {
         void InitErrorMatrix();
         //void InitLearnMatrixMLP();
 
-        // Sets all weights of all neurons to default & set output_ready indicator to false
+        /// Sets all weights of all neurons to default & set output_ready indicator to false
         void ResetMLP();
         inline void ResetDeltaWeights() {
             for (std::vector<TensorT>& delta_weight_of_layer : delta_weights_) {
@@ -792,27 +794,27 @@ namespace mlp {
                      || to_check_prediction_error && !is_error_for_each_output) { prediction_error_percent_.resize(1); }
         }
 
-        // Resize Correction matrix to nodes_layers_ dimension
-        // Correction Matrix consists of delta correction for each node of network
+        /// Resize Correction matrix to nodes_layers_ dimension
+        /// Correction Matrix consists of delta correction for each node of network
         void InitCorrectionMtx();
-        // Resize Delta weights matrix to nodes_layers_ dimension
+        /// Resize Delta weights matrix to nodes_layers_ dimension
         void InitDeltaWeightsMtx();
-        // Init all neccessary variable for node learning mlp
+        /// Init all neccessary variable for node learning mlp
         void InitLearnNodeMLP();
 
-        // Calculate correction for all nodes for backpropagation method
+        /// Calculate correction for all nodes for backpropagation method
         void CalcCorrectionMatrix();
-        // Calculate weights of neural network
+        /// Calculate weights of neural network
         void CalcWeights();
-        // For matrix form of neural network learning
-        // new W[jk] = old_W[jk] - Nu * E[k] * O[k]*(1 - O[k]) * O[j][transpont]
+        /// For matrix form of neural network learning
+        /// new W[jk] = old_W[jk] - Nu * E[k] * O[k]*(1 - O[k]) * O[j][transpont]
         void CalcWeightsMatrixForm();
         void SaveWeightsFrmMatrixToNodes();
 
         NodeMLP::InputWeightOutputT DerivativeLossFunction() const;
         constexpr NodeMLP::InputWeightOutputT DerivativeActivationFunction() const;
 
-        // Write in console epoch info
+        /// Write in console epoch info
         inline void WriteEpochInfoInConsole() {
     // Critical to performance code section. Don't use cls.
             //system("cls");
@@ -826,34 +828,34 @@ namespace mlp {
 // https://towardsdatascience.com/learning-rate-schedules-and-adaptive-learning-rate-methods-for-deep-learning-2c8f433990d1
 //https://machinelearningmastery.com/using-learning-rate-schedules-deep-learning-models-python-keras/
 
-        // Calculates learning rate using choosen method
+        /// Calculates learning rate using choosen method
         void CalcLearningRate();
 
-        // When learning rate is constant
+        /// When learning rate is constant
         void ConstantLRate();
 
-        // Time-based Learning rate schedule
-        // Nu[n+1] = Nu[n] / (1 + d*n)
-        // Nu - Learning rate
-        // d - decay parametr
-        // n - iteration step
+        /// Time-based Learning rate schedule
+        /// Nu[n+1] = Nu[n] / (1 + d*n)
+        /// Nu - Learning rate
+        /// d - decay parametr
+        /// n - iteration step
         void TimeBasedLRateSchedule();
 
-        // Step-based Learning rate schedule
-        // Nu[n] = Nu[0]*d^(floor((1 + n)/r))
-        // Nu[n] - learning rate at iteration n
-        // Nu[0] - the initial learning rate
-        // d - how much the learning rate should change at each drop
-        // r - corresponds to the droprate, or how often the rate should be dropped (10 corresponds to a drop every 10 iterations)
-        // floor - The floor function here drops the value of its input_ptr to 0 for all values smaller than 1.
-        // Drop rate is number of epochs from wich learning rate drops to half
+        /// Step-based Learning rate schedule
+        /// Nu[n] = Nu[0]*d^(floor((1 + n)/r))
+        /// Nu[n] - learning rate at iteration n
+        /// Nu[0] - the initial learning rate
+        /// d - how much the learning rate should change at each drop
+        /// r - corresponds to the droprate, or how often the rate should be dropped (10 corresponds to a drop every 10 iterations)
+        /// floor - The floor function here drops the value of its input_ptr to 0 for all values smaller than 1.
+        /// Drop rate is number of epochs from wich learning rate drops to half
         void StepBasedLRateSchedule();
 
-        // Exponential Learning rate schedule
-        // Nu[n] = Nu[0]*exp^(-d*n)
-        // Nu[n] - learning rate at iteration n
-        // Nu[0] - the initial learning rate
-        // d - decay parametr
+        /// Exponential Learning rate schedule
+        /// Nu[n] = Nu[0]*exp^(-d*n)
+        /// Nu[n] - learning rate at iteration n
+        /// Nu[0] - the initial learning rate
+        /// d - decay parametr
         void ExponentialLRateSchedule();
 
         void AdaptiveLRate();
@@ -862,15 +864,15 @@ namespace mlp {
 
 // Helper functions
 
-        // Rescaling of the data from the original range so that all values are within the range of 0 and 1.
-        // y = (x - min) / (max - min)
+        /// Rescaling of the data from the original range so that all values are within the range of 0 and 1.
+        /// y = (x - min) / (max - min)
         inline NodeMLP::InputWeightOutputT NormalizeValue(const NodeMLP::InputWeightOutputT x, const NodeMLP::InputWeightOutputT min, const NodeMLP::InputWeightOutputT max) {
             return (x - min) / (max - min);
         }
         // https://machinelearningmastery.com/how-to-improve-neural-network-stability-and-modeling-performance-with-data-scaling/
 
-        // Scale input_ptr to be in interval of -[1;1] for sigmoid activation function
-        // input_ptr*a/b
+        /// Scale input_ptr to be in interval of -[1;1] for sigmoid activation function
+        /// input_ptr*a/b
         void ScaleInput(TensorT& input_ptr, NodeMLP::InputWeightOutputT a = 1.0, NodeMLP::InputWeightOutputT b = 100.0);
         inline double Scale(NodeMLP::InputWeightOutputT value, NodeMLP::InputWeightOutputT a = 1.0, NodeMLP::InputWeightOutputT b = 100.0) {
             return value * a / b;
@@ -878,111 +880,111 @@ namespace mlp {
 
 // !Helper functions
 
-        // Structure of all network
+        /// Structure of all network
         StructureMLP struct_mlp_{};
 
-        // Vector of Target values
+        /// Vector of Target values
         TensorT target_{};
 
         TopologyType topology_{ TopologyType::Feed_Forward };
 
-        // Activation function of hidden layer
+        /// Activation function of hidden layer
         NodeMLP::ActivationFunctionType hidden_layer_actv_func_type_{ NodeMLP::ActivationFunctionType::SiLU_Sigmoid_linear_unit };
-        // Activation function of output layer
+        /// Activation function of output layer
         NodeMLP::ActivationFunctionType output_layer_actv_func_type_{ NodeMLP::ActivationFunctionType::Softmax };
-        // Loss function for network weights changing & calc of network accuracy
+        /// Loss function for network weights changing & calc of network accuracy
         LossFunctionType loss_func_type_{ LossFunctionType::Mean_Squared_Error };
 
-        // Type of algorithm of changing learning rate throught epochs
+        /// Type of algorithm of changing learning rate throught epochs
         LearningRateSchedule learning_rate_schedule_{ LearningRateSchedule::Time_based };
 
-        // Bias works like shift in output function.
-        // All layers except the last have one bias node.
-        // Bias will be in input_n_weights_ of nodes of all layer except the last layer.
-        // But bias value is used in every layer except first layer
-        // Bias is neuron with one const input_ptr = 1, identity y_in=x function activation and with evaluated weight of output
+        /// Bias works like shift in output function.
+        /// All layers except the last have one bias node.
+        /// Bias will be in input_n_weights_ of nodes of all layer except the last layer.
+        /// But bias value is used in every layer except first layer
+        /// Bias is neuron with one const input_ptr = 1, identity y_in=x function activation and with evaluated weight of output
         bool has_bias_{ true };
 
-        // Use normalization of data when learn & process network
+        /// Use normalization of data when learn & process network
         bool to_normalize_data_{ true };
 
-        // Learning Rate at the first iteration step. Can be changed when loading ann.
+        /// Learning Rate at the first iteration step. Can be changed when loading ann.
         double learning_rate_initial_{ default_learning_rate };
 
-        // A learning rate schedule changes the learning rate during learningand is most often changed between epochs / iterations
-        // https://en.wikipedia.org/wiki/Learning_rate
+        /// A learning rate schedule changes the learning rate during learningand is most often changed between epochs / iterations
+        /// https://en.wikipedia.org/wiki/Learning_rate
         double learning_rate_{ learning_rate_initial_ };
 
-        // Needed in calculation learning_rate_
-        // All the data from database learned from one epoch. Then epoch increased, decreasing learning rate.
-        // Network learning speed is very high at the beginning of the learning process.
-        // Then it makes little corrections at high epoch value
-        // Epochs start from 0.
+        /// Needed in calculation learning_rate_
+        /// All the data from database learned from one epoch. Then epoch increased, decreasing learning rate.
+        /// Network learning speed is very high at the beginning of the learning process.
+        /// Then it makes little corrections at high epoch value
+        /// Epochs start from 0.
         EpochIndexT current_epoch_{ 0 };
-        // Max index of epoch during last learning process
+        /// Max index of epoch during last learning process
         EpochIndexT max_epoch_index_{ 0 };
 
-        // Decay is needed for changing learning rate
+        /// Decay is needed for changing learning rate
         double decay_{ default_decay };
 
-        // Momentum is needed to prevent wrong results of gradient algoritm
+        /// Momentum is needed to prevent wrong results of gradient algoritm
         double momentum_{ default_momentum };
 
-        // If flag is false, no checks are making
+        /// If flag is false, no checks are making
         bool to_check_prediction_error{ false };
-        // Value in percents indicating when neural network will stop learning
-        // Default value is 5%
-        // Calculation formula: mean absolute error loss function =  1/n * Sum|target - prediction|
+        /// Value in percents indicating when neural network will stop learning
+        /// Default value is 5%
+        /// Calculation formula: mean absolute error loss function =  1/n * Sum|target - prediction|
         double permissible_prediction_error_{ default_permissible_prediction_error };
-        // Mean absolute loss error function value on all output or on each output
+        /// Mean absolute loss error function value on all output or on each output
         std::vector<double> prediction_error_percent_{};
-        // Calculate prediction_error_percent_ for all outputs together or for each
+        /// Calculate prediction_error_percent_ for all outputs together or for each
         bool is_error_for_each_output{ false };
-        // Loss function values on all of input data set of last learning epoch
+        /// Loss function values on all of input data set of last learning epoch
         std::vector<NodeMLP::InputWeightOutputT> loss_fn_values_{};
-        // element = Loss function value average of all rows in one epoch. History on all epochs of learning on input data set. This helps to track results of net learning.
+        /// element = Loss function value average of all rows in one epoch. History on all epochs of learning on input data set. This helps to track results of net learning.
         std::vector<NodeMLP::InputWeightOutputT> loss_fn_average_history_{};
-        // Flag of saving history of mean loss function values
+        /// Flag of saving history of mean loss function values
         bool to_save_loss_fn_mean_history_{ false };
         bool to_show_learning_process_info{ false };
 
-        // Parameter for StepBased learning rate schedule
-        // Number of epochs from wich learning rate drops to half
+        /// Parameter for StepBased learning rate schedule
+        /// Number of epochs from wich learning rate drops to half
         double epochs_drop_rate_{ 2 };
 
 
-        // Поправка к узлам
-        // delt[k](k in output) = derivative_Activation_Function_of_output_layer * derivative_Loss_Funciton = dE / dNet_sum
-        // delt[j](j in hidden) = derivative_Activation_Function_of_hidden_layer * Sum[k in childern](delt[k] * weight[j,k])
+        /// Поправка к узлам
+        /// delt[k](k in output) = derivative_Activation_Function_of_output_layer * derivative_Loss_Funciton = dE / dNet_sum
+        /// delt[j](j in hidden) = derivative_Activation_Function_of_hidden_layer * Sum[k in childern](delt[k] * weight[j,k])
         std::vector<TensorT> correction_matrix_{};
         // look wikipedia
 
-        // Changing of weights on current iteration
-        // delta_weights_[0] = delta of weights between First layer and Second layer
-        // delta_weights_[i] = delta of weights between i layer and i+1 layer
-        // Structure of delta_weights_ is equal to structure of nodes_layers_n_edges in struct_mlp_
+        /// Changing of weights on current iteration
+        /// delta_weights_[0] = delta of weights between First layer and Second layer
+        /// delta_weights_[i] = delta of weights between i layer and i+1 layer
+        /// Structure of delta_weights_ is equal to structure of nodes_layers_n_edges in struct_mlp_
         DeltaWeightMatrixT delta_weights_{};
 
 // Matrix data
 
         //Eigen::VectorXd input_vec_{};
         Eigen::VectorXd target_vec_{};
-        // All weights matrixes include weights of First input_ptr layer. Used in matrix calculation of network output
-        // w11  w21 w[i,j]
-        // w12  w22
-        // Rows are all weights connected to neuron i in layer
-        // Starts from first layer
-        // w[i,j]: i - neurons in previous layer; j - neuron in current layer
-        // columns count = number of neurons in previous layer
-        // rows count = number of neurons in current layer
+        /// All weights matrixes include weights of First input_ptr layer. Used in matrix calculation of network output
+        /// w11  w21 w[i,j]
+        /// w12  w22
+        /// Rows are all weights connected to neuron i in layer
+        /// Starts from first layer
+        /// w[i,j]: i - neurons in previous layer; j - neuron in current layer
+        /// columns count = number of neurons in previous layer
+        /// rows count = number of neurons in current layer
         std::vector<Eigen::MatrixXd> weights_in_layer_{};
-        // Starts from first layer
+        /// Starts from first layer
         std::vector<Eigen::VectorXd> output_of_layers_{};
         std::vector<Eigen::VectorXd> error_in_layers_{};
 
 // Service data
 
-        // Service variable for softmax output layer activation function
+        /// Service variable for softmax output layer activation function
         std::vector<NodeMLP::InputWeightOutputT> output_layer_net_input_vec_{};
         std::vector<size_t> layers_dimension_{};
 
@@ -1009,16 +1011,16 @@ namespace mlp {
 
 // Helper functions
 
-    // Load input_ptr data for neural network from csv file excel table
-    // DataTableTuple
+    /// Load input_ptr data for neural network from csv file excel table
+    /// DataTableTuple
     template<typename... ColumnT>
     DataTableTuple<ColumnT...> LoadInputDataFrmCSV(const std::string& file_name) {
         const std::string file_path{ kInputDatabasesFolder + file_name + kInputDataF_Extension };
         return file::ReadFormattedDataTableCSV<ColumnT...>(file_path);
     };
 
-    // Load input_ptr data for neural network from csv file excel table
-    // DataTableArray
+    /// Load input_ptr data for neural network from csv file excel table
+    /// DataTableArray
     template<size_t kColumnCount, typename ColumnT>
     DataTableArray<kColumnCount, ColumnT> LoadInputDataFrmCSV(const std::string& file_name) {
         const std::string file_path{ kInputDatabasesFolder + file_name + kInputDataF_Extension };
@@ -1027,17 +1029,17 @@ namespace mlp {
 
 // Rules for seting hidden layer
 
-    // Ns / (alpha * (Ni + No))
-    // Ni = number of input nodes
-    // No = number of nodes in output layer
-    // Ns = number of samples in training data set
-    // α = an arbitrary scaling factor usually 2 - 10
+    /// Ns / (alpha * (Ni + No))
+    /// Ni = number of input nodes
+    /// No = number of nodes in output layer
+    /// Ns = number of samples in training data set
+    /// α = an arbitrary scaling factor usually 2 - 10
     inline size_t NodesInHiddenLayer(const size_t input_count, const size_t output_count,
                                      const size_t samples_count, const size_t alpha = 2.0) {
         return samples_count / (alpha * (input_count + output_count));
     }
 
-    //number of hidden layers equals one; and (ii) the number of neurons in that layer is the mean of the neurons in the input and output layers.
+    ///number of hidden layers equals one; and (ii) the number of neurons in that layer is the mean of the neurons in the input and output layers.
     inline size_t NodesInHiddenLayerMeanRule(const size_t input_count, const size_t output_count) {
         return (input_count + output_count) / 2;
     }
