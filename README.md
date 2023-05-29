@@ -1,4 +1,4 @@
-# ArtificialNeuralNetwork
+# Artificial Neural Network
 Multilayer Perceptron.
 
 ## Classes of Project
