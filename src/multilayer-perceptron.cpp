@@ -25,6 +25,8 @@
 #include "read-serialized-data-file.hpp"
 #include "read-object-in-vec-byte.hpp"
 
+// TODO: Rename Functions of mutators and accessors to set_variable() varaible()
+
 namespace mlp {
 //public=================================
 

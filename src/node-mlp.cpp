@@ -15,66 +15,66 @@ namespace mlp { //public
         }
 
         switch (activation_function_type_) {
-        case ActivationFunctionType::Identity:
-            output_ = fn_actv::IdentityFn<InputWeightOutputT>(net_input_);
-            break;
-        case ActivationFunctionType::Binary_step:
-            output_ = fn_actv::BinaryStepFn<InputWeightOutputT>(net_input_);
-            break;
-        case ActivationFunctionType::Sigmoid_Logistic_soft_step:
-            output_ = fn_actv::SigmoidLogisticFn<InputWeightOutputT>(net_input_);
-            break;
-        case ActivationFunctionType::Hyperbolic_tangent:
-            output_ = fn_actv::HyperbolicTangentFn<InputWeightOutputT>(net_input_);
-            break;
-        case ActivationFunctionType::ReLU_Rectified_linear_unit:
-            output_ = fn_actv::RectifiedLinearUnitFn<InputWeightOutputT>(net_input_);
-            break;
-        case ActivationFunctionType::GELU_Gaussian_Error_Linear_Unit:
-            output_ = fn_actv::GaussianErrorLinearUnitFn<InputWeightOutputT>(net_input_);
-            break;
-        case ActivationFunctionType::Softplus:
-            output_ = fn_actv::SoftplusFn<InputWeightOutputT>(net_input_);
-            break;
-        case ActivationFunctionType::ELU_Exponential_linear_unit:
-            output_ = fn_actv::ExponentialLinearUnitFn<InputWeightOutputT>(net_input_, 1);
-            break;
-        case ActivationFunctionType::SELU_Scaled_exponential_linear_unit:
-            output_ = fn_actv::ScaledExponentialLinearUnitFn<InputWeightOutputT>(net_input_);
-            break;
-        case ActivationFunctionType::Leaky_ReLU_Leaky_rectified_linear_unit:
-            output_ = fn_actv::LeakyRectifiedLinearUnitFn<InputWeightOutputT>(net_input_);
-            break;
-        case ActivationFunctionType::PReLU_Parameteric_rectified_linear_unit:
-            output_ = fn_actv::ParametricRectifiedLinearUnitFn<InputWeightOutputT>(net_input_, 1);
-            break;
-        case ActivationFunctionType::SiLU_Sigmoid_linear_unit:
-            output_ = fn_actv::SigmoidLinearUnitFn<InputWeightOutputT>(net_input_);
-            break;
-        case ActivationFunctionType::Mish:
-            output_ = fn_actv::MishFn<InputWeightOutputT>(net_input_);
-            break;
-        case ActivationFunctionType::Gaussian:
-            output_ = fn_actv::GaussianFn<InputWeightOutputT>(net_input_);
-            break;
-            /*case ActivationFunctionType::Softmax:
-                output_ = fn_actv::softmax<InputWeightOutputT>(net_input_);
-                break;*/
-        case ActivationFunctionType::Maxout:
-            //output_ = fn_actv::MaxoutFn<InputWeightOutputT>(net_input_);
-            break;
-        case ActivationFunctionType::Linear:
-            output_ = fn_actv::LinearFn<InputWeightOutputT>(1, net_input_, 0);
-            break;
-        case ActivationFunctionType::GaussianRBFFn:
-            output_ = fn_actv::GaussianRBFFn<InputWeightOutputT>(net_input_, 1, 1);
-            break;
-        case ActivationFunctionType::HeavisideFn:
-            output_ = fn_actv::HeavisideFn<InputWeightOutputT>(net_input_, 1, 1);
-            break;
-        case ActivationFunctionType::MultiquadraticsFn:
-            output_ = fn_actv::MultiquadraticsFn<InputWeightOutputT>(net_input_, 1, 1);
-            break;
+            case ActivationFunctionType::Identity:
+                output_ = fn_actv::IdentityFn<InputWeightOutputT>(net_input_);
+                break;
+            case ActivationFunctionType::Binary_step:
+                output_ = fn_actv::BinaryStepFn<InputWeightOutputT>(net_input_);
+                break;
+            case ActivationFunctionType::Sigmoid_Logistic_soft_step:
+                output_ = fn_actv::SigmoidLogisticFn<InputWeightOutputT>(net_input_);
+                break;
+            case ActivationFunctionType::Hyperbolic_tangent:
+                output_ = fn_actv::HyperbolicTangentFn<InputWeightOutputT>(net_input_);
+                break;
+            case ActivationFunctionType::ReLU_Rectified_linear_unit:
+                output_ = fn_actv::RectifiedLinearUnitFn<InputWeightOutputT>(net_input_);
+                break;
+            case ActivationFunctionType::GELU_Gaussian_Error_Linear_Unit:
+                output_ = fn_actv::GaussianErrorLinearUnitFn<InputWeightOutputT>(net_input_);
+                break;
+            case ActivationFunctionType::Softplus:
+                output_ = fn_actv::SoftplusFn<InputWeightOutputT>(net_input_);
+                break;
+            case ActivationFunctionType::ELU_Exponential_linear_unit:
+                output_ = fn_actv::ExponentialLinearUnitFn<InputWeightOutputT>(net_input_, 1);
+                break;
+            case ActivationFunctionType::SELU_Scaled_exponential_linear_unit:
+                output_ = fn_actv::ScaledExponentialLinearUnitFn<InputWeightOutputT>(net_input_);
+                break;
+            case ActivationFunctionType::Leaky_ReLU_Leaky_rectified_linear_unit:
+                output_ = fn_actv::LeakyRectifiedLinearUnitFn<InputWeightOutputT>(net_input_);
+                break;
+            case ActivationFunctionType::PReLU_Parameteric_rectified_linear_unit:
+                output_ = fn_actv::ParametricRectifiedLinearUnitFn<InputWeightOutputT>(net_input_, 1);
+                break;
+            case ActivationFunctionType::SiLU_Sigmoid_linear_unit:
+                output_ = fn_actv::SigmoidLinearUnitFn<InputWeightOutputT>(net_input_);
+                break;
+            case ActivationFunctionType::Mish:
+                output_ = fn_actv::MishFn<InputWeightOutputT>(net_input_);
+                break;
+            case ActivationFunctionType::Gaussian:
+                output_ = fn_actv::GaussianFn<InputWeightOutputT>(net_input_);
+                break;
+                /*case ActivationFunctionType::Softmax:
+                    output_ = fn_actv::softmax<InputWeightOutputT>(net_input_);
+                    break;*/
+            case ActivationFunctionType::Maxout:
+                //output_ = fn_actv::MaxoutFn<InputWeightOutputT>(net_input_);
+                break;
+            case ActivationFunctionType::Linear:
+                output_ = fn_actv::LinearFn<InputWeightOutputT>(1, net_input_, 0);
+                break;
+            case ActivationFunctionType::GaussianRBFFn:
+                output_ = fn_actv::GaussianRBFFn<InputWeightOutputT>(net_input_, 1, 1);
+                break;
+            case ActivationFunctionType::HeavisideFn:
+                output_ = fn_actv::HeavisideFn<InputWeightOutputT>(net_input_, 1, 1);
+                break;
+            case ActivationFunctionType::MultiquadraticsFn:
+                output_ = fn_actv::MultiquadraticsFn<InputWeightOutputT>(net_input_, 1, 1);
+                break;
         }
         //output_ = y_in;
     }
