@@ -7,6 +7,7 @@ Multilayer Perceptron.
 **NodeMLP**
 
 ## Installation
+git clone --recurse-submodules https://gitlab.com/ai6694921/artificial-neural-network.git
 cmake -B build/visual-studio-cmake
 
 ## Support
