@@ -1,6 +1,11 @@
 # Artificial Neural Network
 Multilayer Perceptron.
 
+## Repository Web Pages
+[github](https://github.com/FokinDenis88/artificial-neural-network)  
+[gitlab (main)](https://gitlab.com/ai6694921/artificial-neural-network)  
+[gitverse (Russia)](https://gitverse.ru/FokinDenis88/artificial-neural-network)
+
 ## Classes of Project
 **ArtificialNeuralNetwork:**
 
@@ -10,6 +15,14 @@ Multilayer Perceptron.
 1) git clone --branch develop --recurse-submodules https://gitlab.com/ai6694921/artificial-neural-network.git
 2) (From the working dir = design-patterns)  cmake -B build/visual-studio
 Submodules: file-stream-wrapper, boost-regex, eigen-3.4(optional)
+
+## Contact
+**Skype:** live:dragon8806  
+**Telegram:** https://t.me/Furious_Dragon_88  
+**VK (Russia):** https://vk.com/furious__dragon  
+**Discord:** ***ID:*** fokin_denis_yurievich_  ***User Name:*** fokin_denis_yurievich_  
+**Email:** fokin-denis-88-code@ya.ru  
+**Gitter:** @fokindenis88_gitlab:gitter.im
 
 ## Support
 ### Bitcoin and other cryptocurrency:  
